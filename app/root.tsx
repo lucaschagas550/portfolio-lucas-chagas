@@ -7,8 +7,11 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { Navbar } from "~/components/navbar/navbar";
+
 import type { Route } from "./+types/root";
 import "./app.css";
+import "./error-page.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -19,7 +22,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap",
   },
 ];
 
@@ -42,7 +45,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -62,11 +70,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="container mx-auto p-4 pt-16">
+    <main className="error-page">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full overflow-x-auto p-4">
+        <pre className="error-page__stack">
           <code>{stack}</code>
         </pre>
       )}

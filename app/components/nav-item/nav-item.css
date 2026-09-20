@@ -1,0 +1,24 @@
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+/* Página atual: só o texto ganha destaque (cor cheia + negrito). */
+.nav-item--active {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Depois do modificador, para valer também no item ativo. */
+.nav-item:hover {
+  color: var(--color-hover);
+}

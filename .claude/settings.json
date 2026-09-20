@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:Path = \"C:\\\\nvm4w\\\\nodejs;$env:Path\"; Set-Location D:\\\\Projetos\\\\Portfolio\\\\portfolio-lucas-chagas; npm uninstall tailwindcss @tailwindcss/vite prettier-plugin-tailwindcss 2>&1 | Select-Object -Last 4; Get-Content package.json | Select-String -Pattern \"tailwind\")"
+    ]
+  }
+}

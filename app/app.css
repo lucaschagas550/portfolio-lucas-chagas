@@ -1,16 +1,90 @@
-@import "tailwindcss";
+/* Estilos globais: tokens, reset e base. Estilos de componente ficam em
+   arquivos .css próprios (BEM) ao lado do componente.
 
-@theme {
+   BREAKPOINTS (mobile-first, sempre min-width). Custom properties não
+   funcionam em @media, então estes são os únicos valores permitidos:
+
+     Celular      até 767px   estilo base, sem media query
+     Tablet       >= 768px    @media (min-width: 48rem)
+     Notebook     >= 1024px   @media (min-width: 64rem)
+     Computador   >= 1440px   @media (min-width: 90rem)
+*/
+
+:root {
+  color-scheme: light dark;
+
+  /* Cores */
+  --color-bg: #ffffff;
+  --color-surface: #f3f4f6;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --color-primary: #1d4ed8;
+  --color-primary-contrast: #ffffff;
+  --color-focus: #2563eb;
+  --color-hover: #5000ca;
+  --color-overlay: rgb(0 0 0 / 0.5);
+
+  /* Camadas (z-index) */
+  --z-backdrop: 10;
+  --z-drawer: 20;
+  --z-toggle: 30;
+
+  /* Tipografia */
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Roboto", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Espaçamento */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Forma e layout */
+  --radius-md: 0.5rem;
+  --container-max: 64rem;
+  --tap-size: 2.75rem; /* alvo de toque mínimo (44px) */
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #030712;
+    --color-surface: #111827;
+    --color-text: #f9fafb;
+    --color-text-muted: #9ca3af;
+    --color-border: #1f2937;
+    --color-primary: #2563eb;
+    --color-focus: #60a5fa;
+    /* #5000ca tem só ~2:1 de contraste no fundo escuro; usa-se um tom mais claro. */
+    --color-hover: #a78bfa;
+    --color-overlay: rgb(0 0 0 / 0.7);
   }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }

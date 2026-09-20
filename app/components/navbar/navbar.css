@@ -1,0 +1,145 @@
+/* Celular (base): o menu é um drawer que entra pela direita. */
+
+.navbar {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Início à esquerda; menu (botão no celular, links do tablet em diante) à direita. */
+.navbar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+}
+
+/* Botões de ícone da barra: ícone de início e botão do menu. */
+.navbar__home,
+.navbar__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  transition: color 0.15s ease;
+}
+
+.navbar__home:hover,
+.navbar__toggle:hover {
+  color: var(--color-hover);
+}
+
+.navbar__home {
+  text-decoration: none;
+}
+
+.navbar__toggle {
+  position: relative;
+  z-index: var(--z-toggle);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.navbar__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.navbar__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-backdrop);
+  padding: 0;
+  border: 0;
+  background-color: var(--color-overlay);
+}
+
+.navbar__nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-drawer);
+  width: min(80vw, 18rem);
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-left: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+
+.navbar__nav--open {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.25s ease,
+    visibility 0s;
+}
+
+/* Mesma altura do botão, para alinhar o título com ele (que fica sobre o drawer). */
+.navbar__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-size);
+  margin: 0 0 var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.navbar__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__nav,
+  .navbar__nav--open {
+    transition: none;
+  }
+}
+
+/* Tablet em diante: sem drawer, links em linha à direita. */
+
+@media (min-width: 48rem) {
+  .navbar__toggle,
+  .navbar__backdrop,
+  .navbar__title {
+    display: none;
+  }
+
+  .navbar__nav,
+  .navbar__nav--open {
+    position: static;
+    width: auto;
+    padding: 0;
+    border-left: 0;
+    background: none;
+    overflow-y: visible;
+    transform: none;
+    visibility: visible;
+    transition: none;
+  }
+
+  .navbar__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+}
