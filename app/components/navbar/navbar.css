@@ -75,7 +75,6 @@
     visibility 0s;
 }
 
-/* Mesma altura do botão, para alinhar o título com ele (que fica sobre o drawer). */
 .navbar__title {
   display: flex;
   align-items: center;
@@ -103,8 +102,6 @@
     transition: none;
   }
 }
-
-/* Tablet em diante: sem drawer, links em linha à direita. */
 
 @media (min-width: 48rem) {
   .navbar__toggle,

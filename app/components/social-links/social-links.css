@@ -1,0 +1,57 @@
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-links__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  color: currentcolor;
+  transition: color 0.15s ease;
+}
+
+.social-links__link:hover {
+  color: var(--color-hover);
+}
+
+.social-links__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentcolor;
+}
+
+.social-links__tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: var(--space-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  font-size: 0.75rem;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition:
+    opacity 0.15s ease,
+    visibility 0s linear 0.15s;
+  pointer-events: none;
+}
+
+.social-links__link:hover .social-links__tooltip,
+.social-links__link:focus-visible .social-links__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
