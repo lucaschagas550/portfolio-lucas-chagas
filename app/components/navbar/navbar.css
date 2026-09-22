@@ -4,45 +4,35 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Início à esquerda; menu (botão no celular, links do tablet em diante) à direita. */
+/* Só o botão do menu na barra; os links (inclusive Início) ficam no menu. */
 .navbar__bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   max-width: var(--container-max);
   margin: 0 auto;
   padding: var(--space-2) var(--space-4);
 }
 
-/* Botões de ícone da barra: ícone de início e botão do menu. */
-.navbar__home,
 .navbar__toggle {
+  position: relative;
+  z-index: var(--z-toggle);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: var(--tap-size);
   height: var(--tap-size);
+  padding: 0;
+  border: 0;
   border-radius: var(--radius-md);
+  background: none;
   color: var(--color-text);
+  cursor: pointer;
   transition: color 0.15s ease;
 }
 
-.navbar__home:hover,
 .navbar__toggle:hover {
   color: var(--color-hover);
-}
-
-.navbar__home {
-  text-decoration: none;
-}
-
-.navbar__toggle {
-  position: relative;
-  z-index: var(--z-toggle);
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
 }
 
 .navbar__icon {

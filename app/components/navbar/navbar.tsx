@@ -1,11 +1,13 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { Link } from "react-router";
 
 import { NavItem } from "~/components/nav-item/nav-item";
 
 import "./navbar.css";
 
+// end: true no Início evita que ele fique "ativo" em qualquer rota
+// (todo caminho começa com "/", então o NavLink precisa de match exato).
 const navLinks = [
+  { to: "/", label: "Início", end: true },
   { to: "/habilidades", label: "Habilidades" },
   { to: "/historia", label: "História" },
   { to: "/contato", label: "Contato" },
@@ -36,26 +38,6 @@ export function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar__bar">
-        <Link
-          to="/"
-          className="navbar__home"
-          aria-label="Página inicial"
-          onClick={close}
-        >
-          <svg
-            className="navbar__icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />
-          </svg>
-        </Link>
-
         <button
           ref={toggleRef}
           type="button"
@@ -99,9 +81,9 @@ export function Navbar() {
         >
           <p className="navbar__title">Menu</p>
           <ul className="navbar__list">
-            {navLinks.map(({ to, label }) => (
+            {navLinks.map(({ to, label, end }) => (
               <li key={to} className="navbar__item">
-                <NavItem to={to} onClick={close}>
+                <NavItem to={to} end={end} onClick={close}>
                   {label}
                 </NavItem>
               </li>
