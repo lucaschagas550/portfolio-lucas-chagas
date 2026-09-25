@@ -1,20 +1,18 @@
+import { useI18n } from "~/i18n/use-i18n";
+import { pageMeta } from "~/i18n/page-meta";
 import "~/pages/page.css";
 
-export function meta() {
-  return [
-    { title: "História | Lucas Chagas" },
-    {
-      name: "description",
-      content: "A trajetória profissional de Lucas Chagas.",
-    },
-  ];
+export function meta({ location }: { location: { pathname: string } }) {
+  return pageMeta(location.pathname, "historia");
 }
 
 export default function Historia() {
+  const { t } = useI18n();
+
   return (
     <main className="page">
-      <h1 className="page__title">História</h1>
-      <p className="page__text">Em construção.</p>
+      <h1 className="page__title">{t.historia.title}</h1>
+      <p className="page__text">{t.common.underConstruction}</p>
     </main>
   );
 }

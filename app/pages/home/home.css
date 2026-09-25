@@ -6,7 +6,7 @@
   justify-content: center;
   gap: 1.875rem;
   width: 100%;
-  min-height: 43.75rem;
+  min-height: 33.75rem;
   padding: var(--space-8) 15%;
   background-image: url("./images/home-hero-bg-light.png");
   background-position: center;
@@ -15,14 +15,20 @@
   background-attachment: fixed;
 }
 
+/* Exceção às regras de seletor: light-dark() não serve para url(), então a
+   imagem escura segue o sistema (sem escolha) ou o tema escolhido no seletor. */
 @media (prefers-color-scheme: dark) {
-  .home__hero {
+  :root:not([data-theme]) .home__hero {
     background-image: url("./images/home-hero-bg-dark.png");
   }
 }
 
+:root[data-theme="dark"] .home__hero {
+  background-image: url("./images/home-hero-bg-dark.png");
+}
+
 .home__hero-content {
-  color: #ffffff;
+  color: var(--color-text);
 }
 
 .home__hero-title {
@@ -34,6 +40,10 @@
 .home__hero-subtitle {
   margin: var(--space-2) 0 0;
   font-size: 1.5rem;
+}
+
+.home__hero-resume {
+  margin-top: var(--space-6);
 }
 
 .home__hero-socials {

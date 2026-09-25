@@ -7,7 +7,11 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { Footer } from "~/components/footer/footer";
 import { Navbar } from "~/components/navbar/navbar";
+import { htmlLang } from "~/i18n/locale";
+import { useI18n } from "~/i18n/use-i18n";
+import { themeScript } from "~/utils/theme-script";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -27,9 +31,12 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { locale } = useI18n();
+
   return (
-    <html lang="en">
+    <html lang={htmlLang[locale]} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
@@ -46,23 +53,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <div className="app">
       <Navbar />
       <Outlet />
-    </>
+      <Footer />
+    </div>
   );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  const { t } = useI18n();
+  let message = t.errors.defaultTitle;
+  let details = t.errors.defaultDetails;
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message =
+      error.status === 404 ? t.errors.notFoundTitle : t.errors.genericTitle;
     details =
       error.status === 404
-        ? "The requested page could not be found."
+        ? t.errors.notFoundDetails
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;

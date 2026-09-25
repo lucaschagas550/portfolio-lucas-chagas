@@ -13,18 +13,22 @@
 :root {
   color-scheme: light dark;
 
-  /* Cores */
-  --color-bg: #ffffff;
-  --color-surface: #f3f4f6;
-  --color-text: #111827;
-  --color-text-muted: #4b5563;
-  --color-border: #e5e7eb;
-  --color-primary: #1d4ed8;
+  /* Cores: light-dark(claro, escuro) segue color-scheme, que por padrão é o
+     do sistema e passa a ser forçado por [data-theme] (seletor de tema).
+     #5000ca tem só ~2:1 de contraste no fundo escuro; lá usa-se um tom mais
+     claro para o hover. */
+  --color-bg: light-dark(#ffffff, #030712);
+  --color-surface: light-dark(#f3f4f6, #111827);
+  --color-text: light-dark(#111827, #f9fafb);
+  --color-text-muted: light-dark(#4b5563, #9ca3af);
+  --color-border: light-dark(#e5e7eb, #1f2937);
+  --color-primary: light-dark(#1d4ed8, #2563eb);
   --color-primary-contrast: #ffffff;
-  --color-focus: #2563eb;
-  --color-hover: #5000ca;
+  --color-focus: light-dark(#2563eb, #60a5fa);
+  --color-hover: light-dark(#5000ca, #a78bfa);
   --color-accent: #7451db;
-  --color-overlay: rgb(0 0 0 / 0.5);
+  --color-success: #22c55e;
+  --color-overlay: light-dark(rgb(0 0 0 / 0.5), rgb(0 0 0 / 0.7));
 
   /* Camadas (z-index) */
   --z-backdrop: 10;
@@ -43,6 +47,8 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
 
   /* Forma e layout */
   --radius-md: 0.5rem;
@@ -50,19 +56,13 @@
   --tap-size: 2.75rem; /* alvo de toque mínimo (44px) */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #030712;
-    --color-surface: #111827;
-    --color-text: #f9fafb;
-    --color-text-muted: #9ca3af;
-    --color-border: #1f2937;
-    --color-primary: #2563eb;
-    --color-focus: #60a5fa;
-    /* #5000ca tem só ~2:1 de contraste no fundo escuro; usa-se um tom mais claro. */
-    --color-hover: #a78bfa;
-    --color-overlay: rgb(0 0 0 / 0.7);
-  }
+/* Tema escolhido no seletor (script inline em root.tsx); sem escolha, vale o do sistema. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 *,
@@ -77,6 +77,30 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Faixa do navbar e do footer: branca no tema claro e preta no escuro (o resto
+   das cores segue os tokens do tema). Redefine só o fundo no próprio bloco, e
+   os componentes internos herdam. */
+.surface-bar {
+  --color-bg: light-dark(#ffffff, #000000);
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Navbar, página e footer: o footer fica no fim da tela em páginas curtas. */
+.app {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
 }
 
 img,

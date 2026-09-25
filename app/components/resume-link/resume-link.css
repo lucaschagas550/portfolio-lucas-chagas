@@ -1,0 +1,38 @@
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  color: currentcolor;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.resume-link:hover {
+  color: var(--color-hover);
+}
+
+.resume-link__icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Versão de destaque (ex.: no hero): contorno que vira fundo cheio, invertendo as cores do tema. */
+.resume-link--button {
+  padding: 0 var(--space-6);
+  border: 2px solid currentcolor;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.resume-link--button:hover {
+  border-color: var(--color-text);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}

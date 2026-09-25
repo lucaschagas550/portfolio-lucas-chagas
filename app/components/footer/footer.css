@@ -1,0 +1,167 @@
+/* Celular (base): tudo alinhado à esquerda, em uma coluna. */
+
+.footer {
+  margin-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4) var(--space-4);
+}
+
+.footer__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.footer__about {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* A assinatura é o destaque do rodapé; o resto é utilitário e discreto. */
+.footer__credits {
+  margin: 0;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.footer__heart {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  vertical-align: -0.05em;
+  fill: var(--color-accent);
+}
+
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.footer__location {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.footer__tech {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.footer__copyright {
+  margin: 0;
+}
+
+.footer__link,
+.footer__top-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.footer__link:hover,
+.footer__top-button:hover {
+  color: var(--color-hover);
+}
+
+.footer__top-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* A batida do coração responde ao mouse sobre a assinatura. */
+@media (prefers-reduced-motion: no-preference) {
+  .footer__credits:hover .footer__heart {
+    animation: footer-heartbeat 0.6s ease-in-out;
+  }
+}
+
+@keyframes footer-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.35);
+  }
+
+  60% {
+    transform: scale(1.1);
+  }
+}
+
+@media (min-width: 48rem) {
+  .footer__inner {
+    padding: var(--space-8) var(--space-6) var(--space-4);
+  }
+
+  .footer__main {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .footer__credits {
+    max-width: 22ch;
+    font-size: 2rem;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .footer__copyright {
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 64rem) {
+  .footer {
+    margin-top: var(--space-16);
+  }
+
+  .footer__inner {
+    padding-top: var(--space-16);
+  }
+
+  .footer__credits {
+    font-size: 2.5rem;
+  }
+}

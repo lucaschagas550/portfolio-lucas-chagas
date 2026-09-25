@@ -12,16 +12,24 @@ describe("TechMarquee", () => {
   ];
 
   it("exibe as tecnologias em uma lista acessível", () => {
-    render(<TechMarquee items={items} />);
+    render(<TechMarquee items={items} label="Tecnologias" />);
 
-    const list = screen.getByRole("list");
+    const list = screen.getByRole("list", { name: "Tecnologias" });
     for (const item of items) {
       expect(within(list).getByText(item.name)).toBeInTheDocument();
     }
   });
 
+  it("usa o nome acessível recebido, no idioma da página", () => {
+    render(<TechMarquee items={items} label="Technologies" />);
+
+    expect(
+      screen.getByRole("list", { name: "Technologies" }),
+    ).toBeInTheDocument();
+  });
+
   it("duplica a lista visualmente mas oculta a cópia de leitores de tela", () => {
-    render(<TechMarquee items={items} />);
+    render(<TechMarquee items={items} label="Tecnologias" />);
 
     expect(screen.getAllByRole("list")).toHaveLength(1);
   });

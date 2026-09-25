@@ -14,7 +14,7 @@ function renderNavbar(currentPath = "/") {
 }
 
 const getToggle = () =>
-  screen.getByRole("button", { name: /(abrir|fechar) menu/i });
+  screen.getByRole("button", { name: /(abrir|fechar|open|close) menu/i });
 const getMenu = () => screen.getByRole("navigation", { name: "Principal" });
 const getLink = (name: string) => screen.getByRole("link", { name });
 
@@ -76,6 +76,60 @@ describe("Navbar", () => {
 
     expect(getLink("Contato")).toHaveAttribute("aria-current", "page");
     expect(getLink("Habilidades")).not.toHaveAttribute("aria-current");
+  });
+});
+
+describe("Navbar (inglês)", () => {
+  it("traduz os rótulos e prefixa os destinos com /en", () => {
+    renderNavbar("/en");
+
+    const links = within(
+      screen.getByRole("navigation", { name: "Main" }),
+    ).getAllByRole("link");
+
+    expect(links.map((link) => link.textContent)).toEqual([
+      "Home",
+      "Skills",
+      "Story",
+      "Contact",
+    ]);
+    expect(links.map((link) => link.getAttribute("href"))).toEqual([
+      "/en",
+      "/en/habilidades",
+      "/en/historia",
+      "/en/contato",
+    ]);
+  });
+
+  it("marca Home em /en e a página atual nas demais", () => {
+    const { unmount } = renderNavbar("/en");
+    expect(getLink("Home")).toHaveAttribute("aria-current", "page");
+    expect(getLink("Story")).not.toHaveAttribute("aria-current");
+    unmount();
+
+    renderNavbar("/en/historia");
+    expect(getLink("Story")).toHaveAttribute("aria-current", "page");
+    expect(getLink("Home")).not.toHaveAttribute("aria-current");
+  });
+
+  it("traduz o botão do menu", () => {
+    renderNavbar("/en");
+
+    expect(getToggle()).toHaveAccessibleName("Open menu");
+  });
+});
+
+describe("Navbar (seletor de idioma)", () => {
+  it("oferece a troca para inglês na página em português", () => {
+    renderNavbar("/historia");
+
+    expect(getLink("English")).toHaveAttribute("href", "/en/historia");
+  });
+
+  it("oferece a troca para português na página em inglês", () => {
+    renderNavbar("/en/historia");
+
+    expect(getLink("Português")).toHaveAttribute("href", "/historia");
   });
 });
 

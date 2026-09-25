@@ -1,21 +1,17 @@
 import { useEffect, useId, useRef, useState } from "react";
 
+import { LanguageSwitch } from "~/components/language-switch/language-switch";
 import { NavItem } from "~/components/nav-item/nav-item";
+import { ThemeToggle } from "~/components/theme-toggle/theme-toggle";
+import { pages } from "~/data/pages";
+import { useI18n } from "~/i18n/use-i18n";
 
 import "./navbar.css";
-
-// end: true no Início evita que ele fique "ativo" em qualquer rota
-// (todo caminho começa com "/", então o NavLink precisa de match exato).
-const navLinks = [
-  { to: "/", label: "Início", end: true },
-  { to: "/habilidades", label: "Habilidades" },
-  { to: "/historia", label: "História" },
-  { to: "/contato", label: "Contato" },
-];
 
 // No celular o menu é um drawer; a partir do tablet o CSS o exibe em linha.
 // O estado só controla o drawer, quem decide o layout por tela é o CSS.
 export function Navbar() {
+  const { t, href } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -36,15 +32,20 @@ export function Navbar() {
   }, [isOpen]);
 
   return (
-    <header className="navbar">
+    <header className="navbar surface-bar">
       <div className="navbar__bar">
+        <div className="navbar__tools">
+          <LanguageSwitch />
+          <ThemeToggle />
+        </div>
+
         <button
           ref={toggleRef}
           type="button"
           className="navbar__toggle"
           aria-expanded={isOpen}
           aria-controls={menuId}
-          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={isOpen ? t.navbar.closeMenu : t.navbar.openMenu}
           onClick={() => setIsOpen((open) => !open)}
         >
           <svg
@@ -77,14 +78,16 @@ export function Navbar() {
         <nav
           id={menuId}
           className={isOpen ? "navbar__nav navbar__nav--open" : "navbar__nav"}
-          aria-label="Principal"
+          aria-label={t.navbar.navLabel}
         >
-          <p className="navbar__title">Menu</p>
+          <p className="navbar__title">{t.navbar.menuTitle}</p>
           <ul className="navbar__list">
-            {navLinks.map(({ to, label, end }) => (
-              <li key={to} className="navbar__item">
-                <NavItem to={to} end={end} onClick={close}>
-                  {label}
+            {pages.map(({ id, path }) => (
+              // end: true na página inicial evita que ela fique "ativa" em
+              // qualquer rota (todo caminho começa com "/").
+              <li key={id} className="navbar__item">
+                <NavItem to={href(path)} end={path === "/"} onClick={close}>
+                  {t.navbar.links[id]}
                 </NavItem>
               </li>
             ))}

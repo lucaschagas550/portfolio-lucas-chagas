@@ -14,6 +14,11 @@
   padding: var(--space-2) var(--space-4);
 }
 
+.navbar__tools {
+  display: flex;
+  align-items: center;
+}
+
 .navbar__toggle {
   position: relative;
   z-index: var(--z-toggle);
@@ -104,6 +109,11 @@
 }
 
 @media (min-width: 48rem) {
+  /* Ferramentas à esquerda e links à direita, na mesma ordem do DOM (Tab). */
+  .navbar__bar {
+    justify-content: space-between;
+  }
+
   .navbar__toggle,
   .navbar__backdrop,
   .navbar__title {

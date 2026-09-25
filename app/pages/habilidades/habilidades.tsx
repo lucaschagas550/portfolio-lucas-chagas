@@ -1,20 +1,18 @@
+import { useI18n } from "~/i18n/use-i18n";
+import { pageMeta } from "~/i18n/page-meta";
 import "~/pages/page.css";
 
-export function meta() {
-  return [
-    { title: "Habilidades | Lucas Chagas" },
-    {
-      name: "description",
-      content: "Tecnologias e habilidades de Lucas Chagas.",
-    },
-  ];
+export function meta({ location }: { location: { pathname: string } }) {
+  return pageMeta(location.pathname, "habilidades");
 }
 
 export default function Habilidades() {
+  const { t } = useI18n();
+
   return (
     <main className="page">
-      <h1 className="page__title">Habilidades</h1>
-      <p className="page__text">Em construção.</p>
+      <h1 className="page__title">{t.habilidades.title}</h1>
+      <p className="page__text">{t.common.underConstruction}</p>
     </main>
   );
 }
