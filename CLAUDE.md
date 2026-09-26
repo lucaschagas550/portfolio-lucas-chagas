@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Visão geral
 
-Portfólio pessoal (Lucas Chagas) construído a partir do template padrão do **React Router v8 (framework mode)** com SSR, React 19, TypeScript estrito, CSS próprio (BEM, sem frameworks de CSS) e Vite. As páginas ainda são placeholders ("Em construção") e devem receber o conteúdo real do portfólio.
+Portfólio pessoal (Lucas Chagas) construído a partir do template padrão do **React Router v8 (framework mode)** com SSR, React 19, TypeScript estrito, CSS próprio (BEM, sem frameworks de CSS) e Vite. Início e Habilidades já têm conteúdo real; História e Contato ainda são placeholders ("Em construção"). O conteúdo do portfólio vem do cofre Obsidian — ver _Segundo cérebro (Obsidian)_.
 
 ## Comandos
 
@@ -29,6 +29,7 @@ docker build -t portfolio . && docker run -p 3000:3000 portfolio
 - **Roteamento por configuração, não por arquivos**: as rotas são declaradas em [app/routes.ts](app/routes.ts) (`RouteConfig`; o nome e o local desse arquivo são exigidos pelo React Router). As páginas ficam em `app/pages/<nome>/<nome>.tsx`, mas criar uma página **não** a registra — é preciso adicioná-la em [app/data/pages.ts](app/data/pages.ts) (`{ id, path, file }`), que alimenta `routes.ts`, o Navbar e o sitemap. `routes.ts` registra cada página duas vezes (`/…` em português e `/en/…` em inglês, com `id` único). `sitemap.xml` e `robots.txt` são rotas de recurso (só `loader`, em `app/pages/sitemap/` e `app/pages/robots/`); em produção defina `SITE_URL` (endereço público, sem ele vale a origem da requisição).
 - **Idiomas (PT/EN)**: o idioma é função da URL (`/` = português, `/en` = inglês; sem cookie nem detecção). Todo texto de interface fica em [app/i18n/messages.ts](app/i18n/messages.ts) — `pt` define o tipo e `en` precisa ter as mesmas chaves —, nunca fixo no JSX. Componentes usam `useI18n()` (`{ locale, t, href }`; `href("/historia")` gera o caminho no idioma atual) e o `meta()` das páginas usa `pageMeta(location.pathname, "<id>")`. Nomes próprios (GitHub, React…) não se traduzem. Testes de componentes que usam `useI18n`/`Link` renderizam dentro de `MemoryRouter`, com `initialEntries={["/en"]}` para testar o inglês.
 - **Currículo**: PDF em `public/curriculo-lucas-chagas.pdf` (mapa por idioma em [app/data/resume.ts](app/data/resume.ts); o inglês usa o mesmo arquivo até existir outro). Disponibilidade para novos projetos: [app/data/availability.ts](app/data/availability.ts).
+- **Habilidades, formação e cursos** (página `/habilidades`): [app/data/skills.ts](app/data/skills.ts) (`specialty` = card em destaque "Back-end .NET"; `complementarySkills` = as 8 categorias complementares — arquitetura, dados, integrações, front-end, DevOps, qualidade e segurança, IA, métodos ágeis —, com títulos em `t.habilidades.categories`), [app/data/education.ts](app/data/education.ts) (graduação e pós, só com os anos) e [app/data/courses.ts](app/data/courses.ts) (títulos oficiais, não traduzidos). Formação e cursos usam o mesmo layout (`habilidades__entries` / `__entry`). Nomes que precisam de tradução usam `{ pt, en }` (`LocalizedText`) e são resolvidos com `localize()` de [app/i18n/localize.ts](app/i18n/localize.ts); nomes próprios ficam como string. Ícones de tecnologia: componente `TechIcon` e o tipo `TechIconSlug` em [app/data/tech-stack.ts](app/data/tech-stack.ts) — prefira os SVGs coloridos do `devicon` (os do `simple-icons` em preto somem no tema escuro).
 - **Tipos de rota gerados**: cada módulo de rota importa `Route` de `./+types/<nome>` (ex.: `import type { Route } from "./+types/home"`). Esses tipos são gerados em `.react-router/types/` por `react-router typegen` (já executado por `dev` e `typecheck`). Se o TypeScript reclamar de `+types/...` inexistente, rode `npm run typecheck` ou `npx react-router typegen`. `.react-router/` é gerado — nunca editar.
 - **[app/root.tsx](app/root.tsx)** é o layout raiz: `Layout` (shell HTML com `<Meta/>`, `<Links/>`, `<Scripts/>`, viewport meta), `App` (`<Navbar/>` + `<Outlet/>`) e `ErrorBoundary` global. A fonte (Roboto, pesos 400/500/700 + itálico 400, via Google Fonts) é declarada em `links` e aplicada pelo token `--font-sans` em `app.css`; para usar outro peso, adicione-o na URL em `links`.
 - **Módulos de rota** exportam por convenção `default` (componente), `meta`, `links`, e opcionalmente `loader`/`action` (server) e `clientLoader`/`clientAction`. Dados devem vir de `loader`, não de `useEffect`.
@@ -37,6 +38,24 @@ docker build -t portfolio . && docker run -p 3000:3000 portfolio
 - **CSS**: escrito à mão em BEM, sem Tailwind — ver seção _CSS (BEM, sem Tailwind)_. Tokens globais e reset em [app/app.css](app/app.css).
 - **Build/deploy**: Dockerfile multi-stage (Node 24 alpine); a imagem final roda `npm run start` sobre `build/`.
 - `verbatimModuleSyntax` está ativo: use `import type { ... }` para importações que são apenas tipos.
+
+## Segundo cérebro (Obsidian)
+
+O conteúdo profissional do portfólio fica num cofre Obsidian **fora do repositório**, em `../segundo-cerebro-portfolio/` (`D:\Projetos\Portfolio\segundo-cerebro-portfolio\`). Ele é a **fonte do conteúdo** do site: consulte-o antes de escrever textos ou dados de perfil (experiências, habilidades, cursos, textos das páginas).
+
+| Nota                          | Conteúdo                                                | Espelho no site                                |
+| ----------------------------- | ------------------------------------------------------- | ---------------------------------------------- |
+| `Portfólio - Índice.md`       | Mapa (MOC) com links para todas as notas                | —                                              |
+| `Perfil.md`                   | Nome, contato, cargo atual, resumo e **posicionamento** | home (`t.home`), futura página Contato         |
+| `Experiência profissional.md` | Linha do tempo por empresa: cargo, período e stack      | futura página História                         |
+| `Habilidades.md`              | Especialidade + competências complementares             | `app/data/skills.ts`                           |
+| `Formação e cursos.md`        | Graduação, pós e certificações                          | `app/data/education.ts`, `app/data/courses.ts` |
+| `Projeto portfólio.md`        | Stack, status das páginas e decisões de produto         | —                                              |
+
+- **Posicionamento**: os textos apresentam Lucas como **desenvolvedor full-stack especializado no ecossistema .NET**, com o **back-end .NET como especialidade** em destaque; front-end, dados, DevOps e métodos ágeis são competências complementares, com menos destaque. Não invente níveis de proficiência (percentuais, estrelas) sem dado real.
+- **Mudou o conteúdo, atualize as duas pontas**: novo emprego, habilidade ou curso entra na nota do cofre **e** em `app/data/*` / `messages.ts`, no mesmo trabalho. Decisões de produto relevantes vão em `Projeto portfólio.md` (seção _Decisões_, com data).
+- **Formato das notas**: Markdown com frontmatter (`tags`, `fonte`, `atualizado: AAAA-MM-DD`), links internos como wikilinks (`[[Perfil]]`) e toda nota nova linkada no índice. Não edite `.obsidian/` (configuração do app) nem apague notas do usuário.
+- **Fontes**: o currículo (`public/curriculo-lucas-chagas.pdf`) e o LinkedIn (https://www.linkedin.com/in/lucas-chagas-40624a163/). O LinkedIn **bloqueia leitura automática** (HTTP 999): peça ao usuário o **PDF exportado do perfil** (Perfil → Mais → Salvar em PDF). O export de 2026-09-26 já está nas notas; ele traz conquistas com números (ex.: 94% de cobertura, processo 10× mais rápido) que devem alimentar a página História. Quando currículo e LinkedIn divergirem em datas, registre a divergência na nota e mostre no site só o que for consistente (ex.: apenas os anos).
 
 ## Princípios de código
 
@@ -65,6 +84,8 @@ Aplique com bom senso ao tamanho do projeto — é um portfólio, não um sistem
 - **Tokens**: cores, espaçamentos, raios, fontes e larguras vêm de custom properties em `:root` ([app/app.css](app/app.css)) — nunca valores literais repetidos. Adicione o token em vez de repetir o valor.
 - **Tema claro/escuro**: os tokens de cor usam `light-dark(claro, escuro)` em `:root` ([app/app.css](app/app.css)); `color-scheme` decide o lado — por padrão o do sistema, e `:root[data-theme="light"|"dark"]` o força (botão `ThemeToggle` no navbar; a escolha fica em `localStorage` e é aplicada por um script inline no `<head>`, sem piscar). Componentes usam só `var(--...)`, sem regras de dark mode próprias. Única exceção: `light-dark()` não vale para `url()`, então a imagem de fundo do hero da home tem seletores `:root[data-theme]` próprios. Navbar e footer usam a classe `surface-bar` (bloco em `app.css` que só redefine o fundo: branco no tema claro, preto no escuro); aplique-a em novos elementos que devam ter esse visual.
 - **Mobile-first**: estilo base para telas pequenas, ampliado com `@media (min-width: ...)` usando **somente** os breakpoints da tabela abaixo (`48rem`, `64rem`, `90rem`). Não use `max-width` em media queries.
+- **Movimento**: animações em **CSS, sem JS nem bibliotecas**, sempre dentro de `@media (prefers-reduced-motion: no-preference)`, e o conteúdo nunca pode ficar escondido quando o recurso não é suportado (sem suporte = estático e completo). Para "surgir ao rolar", aplique a classe global `reveal` ([app/app.css](app/app.css), scroll-driven animation com `animation-timeline: view()`). Números animados usam `@property` com `counter()` (ver `StatHighlights`); o `counter-reset` fica no próprio elemento, porque a propriedade registrada com `inherits: false` não chega ao `::before`. Não anime `transform` numa entrada com `fill-mode: both` se o hover também usa `transform`: use `translate`/`scale` na entrada. Para conferir em headless Chrome, lembre que o Windows desta máquina reporta `prefers-reduced-motion: reduce`.
+- **Texto só para leitores de tela**: classe global `visually-hidden` ([app/app.css](app/app.css)).
 
 ### Breakpoints (dispositivos)
 

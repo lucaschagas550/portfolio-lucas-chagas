@@ -65,6 +65,34 @@ const pt = {
       description: "Tecnologias e habilidades de Lucas Chagas.",
     },
     title: "Habilidades",
+    intro:
+      "Sou desenvolvedor full-stack especializado no ecossistema .NET. Há mais de 6 anos projeto e mantenho APIs, integrações e serviços em C# e ASP.NET Core, do banco de dados à mensageria, para sistemas que precisam ser confiáveis, performáticos e fáceis de evoluir.",
+    statsLabel: "Destaques",
+    stats: {
+      years: "anos de experiência",
+      companies: "empresas de tecnologia",
+      coverage: "de cobertura de testes em projeto .NET",
+      courses: "cursos e certificações",
+    },
+    specialty: {
+      label: "Especialidade",
+      title: "Back-end .NET",
+      description:
+        "O núcleo da minha carreira: .NET em todas as empresas por onde passei, de estagiário a desenvolvedor sênior, construindo APIs, microsserviços e integrações em produção.",
+    },
+    complementaryTitle: "Competências complementares",
+    categories: {
+      architecture: "Arquitetura",
+      data: "Dados e mensageria",
+      integrations: "Integrações",
+      frontend: "Front-end",
+      devops: "DevOps e nuvem",
+      quality: "Qualidade e segurança",
+      ai: "Inteligência artificial",
+      agile: "Métodos ágeis",
+    },
+    educationTitle: "Formação acadêmica",
+    coursesTitle: "Cursos e certificações",
   },
   historia: {
     meta: {
@@ -152,6 +180,34 @@ const en: Messages = {
       description: "Technologies and skills of Lucas Chagas.",
     },
     title: "Skills",
+    intro:
+      "I am a full-stack developer specialized in the .NET ecosystem. For more than 6 years I have designed and maintained APIs, integrations and services in C# and ASP.NET Core, from the database to messaging, for systems that need to be reliable, fast and easy to evolve.",
+    statsLabel: "Highlights",
+    stats: {
+      years: "years of experience",
+      companies: "technology companies",
+      coverage: "test coverage on a .NET project",
+      courses: "courses and certifications",
+    },
+    specialty: {
+      label: "Specialty",
+      title: ".NET back-end",
+      description:
+        "The core of my career: .NET at every company I have worked for, from intern to senior developer, building APIs, microservices and integrations in production.",
+    },
+    complementaryTitle: "Complementary skills",
+    categories: {
+      architecture: "Architecture",
+      data: "Data and messaging",
+      integrations: "Integrations",
+      frontend: "Front-end",
+      devops: "DevOps and cloud",
+      quality: "Quality and security",
+      ai: "Artificial intelligence",
+      agile: "Agile methods",
+    },
+    educationTitle: "Education",
+    coursesTitle: "Courses and certifications",
   },
   historia: {
     meta: {

@@ -16,7 +16,7 @@
   /* Cores: light-dark(claro, escuro) segue color-scheme, que por padrão é o
      do sistema e passa a ser forçado por [data-theme] (seletor de tema).
      #5000ca tem só ~2:1 de contraste no fundo escuro; lá usa-se um tom mais
-     claro para o hover. */
+     claro (vale para o hover e para destaques como a especialidade). */
   --color-bg: light-dark(#ffffff, #030712);
   --color-surface: light-dark(#f3f4f6, #111827);
   --color-text: light-dark(#111827, #f9fafb);
@@ -25,7 +25,8 @@
   --color-primary: light-dark(#1d4ed8, #2563eb);
   --color-primary-contrast: #ffffff;
   --color-focus: light-dark(#2563eb, #60a5fa);
-  --color-hover: light-dark(#5000ca, #a78bfa);
+  --color-brand: light-dark(#5000ca, #a78bfa);
+  --color-hover: var(--color-brand);
   --color-accent: #7451db;
   --color-success: #22c55e;
   --color-overlay: light-dark(rgb(0 0 0 / 0.5), rgb(0 0 0 / 0.7));
@@ -53,6 +54,7 @@
   /* Forma e layout */
   --radius-md: 0.5rem;
   --container-max: 64rem;
+  --prose-max: 48rem; /* largura confortável para parágrafos */
   --tap-size: 2.75rem; /* alvo de toque mínimo (44px) */
 }
 
@@ -112,4 +114,38 @@ svg {
 :focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+/* Texto só para leitores de tela (ex.: o valor real de um número animado). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Surge (fade + subida) conforme o elemento entra na tela ao rolar. Só com
+   movimento permitido e onde há scroll-driven animations; sem suporte, o
+   conteúdo aparece normalmente. O que já está visível ao carregar fica no
+   estado final. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-4));
+  }
 }

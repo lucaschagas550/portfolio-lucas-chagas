@@ -1,0 +1,147 @@
+/* O modificador --featured só redefine estas variáveis locais; os elementos as
+   leem, assim nenhum seletor depende de outro. */
+.skill-group {
+  --skill-group-title-size: 1.125rem;
+  --skill-group-item-size: 0.875rem;
+  --skill-group-item-padding: var(--space-1) var(--space-3);
+  --skill-group-icon-size: 1rem;
+  --skill-group-hover-border: var(--color-brand);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  transition: border-color 0.2s ease;
+}
+
+.skill-group:hover {
+  border-color: var(--skill-group-hover-border);
+}
+
+.skill-group__eyebrow {
+  margin: 0;
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skill-group__title {
+  margin: 0;
+  font-size: var(--skill-group-title-size);
+  line-height: 1.3;
+}
+
+.skill-group__description {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.skill-group__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-group__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--skill-group-item-padding);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  font-size: var(--skill-group-item-size);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.skill-group__item:hover {
+  border-color: var(--color-brand);
+}
+
+.skill-group__icon {
+  width: var(--skill-group-icon-size);
+  height: var(--skill-group-icon-size);
+}
+
+/* Especialidade: borda em gradiente na cor da marca, título e chips maiores.
+   A borda é o fundo (conic-gradient) aparecendo pela borda transparente. */
+@property --skill-group-glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.skill-group--featured {
+  --skill-group-title-size: 1.75rem;
+  --skill-group-item-size: 1rem;
+  --skill-group-item-padding: var(--space-2) var(--space-4);
+  --skill-group-icon-size: 1.25rem;
+  --skill-group-hover-border: transparent;
+
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4);
+  border-color: transparent;
+  border-left-width: var(--space-1);
+  background:
+    linear-gradient(var(--color-surface) 0 0) padding-box,
+    conic-gradient(
+        from var(--skill-group-glow-angle),
+        var(--color-brand),
+        var(--color-border) 30%,
+        var(--color-border) 70%,
+        var(--color-brand)
+      )
+      border-box;
+}
+
+@media (min-width: 48rem) {
+  .skill-group--featured {
+    --skill-group-title-size: 2rem;
+
+    padding: var(--space-8);
+  }
+}
+
+/* Movimento: só para quem não pediu movimento reduzido. Os chips entram em
+   cascata (a entrada usa translate/scale, e o hover usa transform, para não
+   brigarem) e a borda da especialidade gira devagar. */
+@media (prefers-reduced-motion: no-preference) {
+  .skill-group__item {
+    animation: var(--skill-group-item-entrance, none) 0.4s ease-out both;
+    animation-delay: calc(var(--skill-index, 0) * 40ms);
+  }
+
+  .skill-group__item:hover {
+    transform: translateY(-0.125rem);
+  }
+
+  .skill-group--featured {
+    --skill-group-item-entrance: skill-group-chip-in;
+
+    animation: skill-group-glow 8s linear infinite;
+  }
+}
+
+@keyframes skill-group-chip-in {
+  from {
+    opacity: 0;
+    translate: 0 var(--space-2);
+    scale: 0.96;
+  }
+}
+
+@keyframes skill-group-glow {
+  to {
+    --skill-group-glow-angle: 360deg;
+  }
+}

@@ -50,14 +50,6 @@
   white-space: nowrap;
 }
 
-.tech-marquee__icon {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-  object-fit: contain;
-  fill: currentcolor;
-}
-
 @keyframes tech-marquee-scroll {
   from {
     transform: translateX(0);

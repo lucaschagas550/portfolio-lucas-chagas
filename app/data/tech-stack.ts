@@ -1,5 +1,6 @@
 export type TechIconSlug =
   | "dotnet"
+  | "dotnetcore"
   | "blazor"
   | "html5"
   | "css3"
@@ -11,7 +12,25 @@ export type TechIconSlug =
   | "csharp"
   | "xamarin"
   | "azure"
-  | "mssql";
+  | "mssql"
+  | "typescript"
+  | "javascript"
+  | "angularjs"
+  | "oracle"
+  | "postgresql"
+  | "redis"
+  | "rabbitmq"
+  | "docker"
+  | "git"
+  | "gitlab"
+  | "jira"
+  | "postman"
+  | "kubernetes"
+  | "jquery"
+  | "azuredevops"
+  | "datadog"
+  | "vault"
+  | "claude";
 
 export type TechStackItem = {
   name: string;
