@@ -1,0 +1,99 @@
+/* Escada de cargos. O tamanho de cada degrau cresce com a posição
+   (--role-ladder-step, de 1 até --role-ladder-steps). O último, o cargo atual
+   (--current), fica na cor da marca.
+
+   Celular: barras que crescem na horizontal (a escada deitada), para os nomes
+   caberem inteiros. Tablet em diante: degraus que sobem, alinhados pela base. */
+.role-ladder {
+  --role-ladder-origin: left;
+  --role-ladder-from: 0.2 1;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.role-ladder__step {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  inline-size: calc(
+    100% * (var(--role-ladder-step) + 2) / (var(--role-ladder-steps) + 2)
+  );
+  padding: var(--space-2) var(--space-3);
+  border-left: var(--space-1) solid var(--color-border);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background-color: var(--color-surface);
+}
+
+.role-ladder__step--current {
+  border-color: var(--color-brand);
+}
+
+.role-ladder__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.role-ladder__year {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 48rem) {
+  .role-ladder {
+    --role-ladder-origin: bottom;
+    --role-ladder-from: 1 0.2;
+
+    grid-template-columns: repeat(var(--role-ladder-steps), minmax(0, 1fr));
+    align-items: end;
+    gap: var(--space-2);
+  }
+
+  .role-ladder__step {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-1);
+    inline-size: auto;
+    min-block-size: calc(var(--space-12) + var(--role-ladder-step) * 2.5rem);
+    padding: var(--space-3) var(--space-4);
+    border-left: 0;
+    border-top: var(--space-1) solid var(--color-border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .role-ladder__step--current {
+    border-color: var(--color-brand);
+  }
+
+  .role-ladder__title {
+    font-size: 1.125rem;
+  }
+
+  .role-ladder__year {
+    font-size: 0.875rem;
+  }
+}
+
+/* O único movimento de carregamento da página: os degraus crescem em
+   sequência (para a direita no celular, para cima do tablet em diante). */
+@media (prefers-reduced-motion: no-preference) {
+  .role-ladder__step {
+    transform-origin: var(--role-ladder-origin);
+    animation: role-ladder-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--role-ladder-step) * 90ms);
+  }
+}
+
+@keyframes role-ladder-rise {
+  from {
+    opacity: 0;
+    scale: var(--role-ladder-from);
+  }
+}

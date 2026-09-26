@@ -1,6 +1,4 @@
-import type { CSSProperties } from "react";
-
-import { TechIcon } from "~/components/tech-icon/tech-icon";
+import { TechChips } from "~/components/tech-chips/tech-chips";
 import type { TechIconSlug } from "~/data/tech-stack";
 
 import "./skill-group.css";
@@ -31,6 +29,7 @@ export function SkillGroup({
 }: SkillGroupProps) {
   const Heading = headingLevel === 3 ? "h3" : "h2";
   const titleId = `${id}-title`;
+  const isFeatured = variant === "featured";
   const classes = [
     "skill-group",
     variant && `skill-group--${variant}`,
@@ -46,19 +45,11 @@ export function SkillGroup({
         {title}
       </Heading>
       {description && <p className="skill-group__description">{description}</p>}
-      <ul className="skill-group__list">
-        {skills.map((skill, index) => (
-          <li
-            key={skill.name}
-            className="skill-group__item"
-            // Posição do chip, usada pelo CSS para a entrada em cascata.
-            style={{ "--skill-index": index } as CSSProperties}
-          >
-            <TechIcon iconSlug={skill.iconSlug} className="skill-group__icon" />
-            {skill.name}
-          </li>
-        ))}
-      </ul>
+      <TechChips
+        items={skills}
+        size={isFeatured ? "lg" : undefined}
+        cascade={isFeatured}
+      />
     </section>
   );
 }

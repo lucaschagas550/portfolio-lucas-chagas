@@ -39,12 +39,29 @@ describe("SkillGroup", () => {
     expect(within(list).getByText("Dapper")).toBeInTheDocument();
   });
 
-  it("informa ao CSS a posição de cada chip, para a entrada em cascata", () => {
-    render(<SkillGroup id="dotnet" title="Back-end .NET" skills={skills} />);
+  it("usa chips grandes e em cascata só na variante em destaque", () => {
+    const { rerender } = render(
+      <SkillGroup id="data" title="Dados" skills={skills} />,
+    );
 
-    const [first, second] = screen.getAllByRole("listitem");
-    expect(first).toHaveStyle({ "--skill-index": "0" });
-    expect(second).toHaveStyle({ "--skill-index": "1" });
+    expect(screen.getByRole("list")).not.toHaveClass(
+      "tech-chips--lg",
+      "tech-chips--cascade",
+    );
+
+    rerender(
+      <SkillGroup
+        id="dotnet"
+        title="Back-end .NET"
+        skills={skills}
+        variant="featured"
+      />,
+    );
+
+    expect(screen.getByRole("list")).toHaveClass(
+      "tech-chips--lg",
+      "tech-chips--cascade",
+    );
   });
 
   it("exibe rótulo e descrição só quando recebidos", () => {

@@ -1,8 +1,11 @@
 import type { LocalizedText } from "~/i18n/localize";
 
 // Formação acadêmica, da mais recente para a mais antiga. Só os anos: currículo
-// e LinkedIn divergem nos meses.
+// e LinkedIn divergem nos meses. Usada em Habilidades e como marco na História.
+export type EducationId = "puc" | "unip";
+
 export type Education = {
+  id: EducationId;
   degree: LocalizedText;
   institution: string;
   period: string;
@@ -10,6 +13,7 @@ export type Education = {
 
 export const education: Education[] = [
   {
+    id: "puc",
     degree: {
       pt: "Pós-graduação lato sensu em Engenharia de Software",
       en: "Postgraduate specialization in Software Engineering",
@@ -18,6 +22,7 @@ export const education: Education[] = [
     period: "2023 – 2024",
   },
   {
+    id: "unip",
     degree: {
       pt: "Bacharelado em Ciência da Computação",
       en: "Bachelor's degree in Computer Science",

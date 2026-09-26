@@ -100,6 +100,19 @@ const pt = {
       description: "A trajetória profissional de Lucas Chagas.",
     },
     title: "História",
+    intro:
+      "Antes da tecnologia, trabalhei na área de produção e servi no Exército. Em 2019 entrei como estagiário de desenvolvimento e, desde então, o .NET esteve presente em todas as empresas por onde passei. Hoje sou desenvolvedor full-stack sênior.",
+    ladderLabel: "Evolução de cargos",
+    timelineTitle: "Trajetória",
+    beforeTechTitle: "Antes da tecnologia",
+    current: "Atual",
+    present: "hoje",
+    workMode: {
+      remote: "Remoto",
+      hybrid: "Híbrido",
+    },
+    achievementsLabel: "Conquistas",
+    stackToggle: (count: number) => `Tecnologias usadas (${count})`,
   },
   contato: {
     meta: {
@@ -215,6 +228,19 @@ const en: Messages = {
       description: "The professional journey of Lucas Chagas.",
     },
     title: "Story",
+    intro:
+      "Before tech, I worked in production and served in the Brazilian Army. In 2019 I started as a software intern and, since then, .NET has been part of every company I've worked for. Today I'm a senior full-stack developer.",
+    ladderLabel: "Career progression",
+    timelineTitle: "Career path",
+    beforeTechTitle: "Before tech",
+    current: "Current",
+    present: "present",
+    workMode: {
+      remote: "Remote",
+      hybrid: "Hybrid",
+    },
+    achievementsLabel: "Achievements",
+    stackToggle: (count: number) => `Technologies used (${count})`,
   },
   contato: {
     meta: {

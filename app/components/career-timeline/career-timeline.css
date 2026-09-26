@@ -1,0 +1,163 @@
+/* Linha do tempo: ano, trilho com marcador e conteúdo. O estado base já é o
+   final (trilho todo colorido, marcadores acesos); a rolagem só anima o
+   "antes", então sem suporte ou com movimento reduzido nada fica faltando.
+
+   Celular:           Notebook em diante:
+   ● 2026             2026  ●  Empresa
+   │ Empresa          (fixo)│  conteúdo
+   │ conteúdo               │                                            */
+.career-timeline {
+  --career-timeline-color: var(--color-brand);
+  --career-timeline-rail: 1.5rem;
+  --career-timeline-year-column: 0rem;
+  --career-timeline-node-size: 0.875rem;
+
+  position: relative;
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Timeline de rolagem nomeada: 0% quando o topo da lista cruza o meio da
+     tela, 100% quando o fim cruza. O preenchimento acompanha a leitura. */
+  view-timeline: --career-timeline block;
+  view-timeline-inset: 50% 50%;
+}
+
+.career-timeline--muted {
+  --career-timeline-color: var(--color-text-muted);
+}
+
+/* Trilho (fundo) e preenchimento (frente), no centro da coluna do marcador. */
+.career-timeline::before,
+.career-timeline::after {
+  content: "";
+  position: absolute;
+  top: var(--space-2);
+  bottom: 0;
+  left: calc(
+    var(--career-timeline-year-column) + var(--career-timeline-rail) / 2 - 1px
+  );
+  width: 2px;
+  border-radius: 1px;
+}
+
+.career-timeline::before {
+  background-color: var(--color-border);
+}
+
+.career-timeline::after {
+  background-color: var(--career-timeline-color);
+  transform-origin: top;
+}
+
+.career-timeline__item {
+  display: grid;
+  grid-template-columns: var(--career-timeline-rail) minmax(0, 1fr);
+  grid-template-areas:
+    "node year"
+    ". content";
+  column-gap: var(--space-4);
+  row-gap: var(--space-2);
+}
+
+.career-timeline__year {
+  grid-area: year;
+  color: var(--career-timeline-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.career-timeline__node {
+  position: relative;
+  z-index: 1;
+  grid-area: node;
+  justify-self: center;
+  align-self: center;
+  width: var(--career-timeline-node-size);
+  height: var(--career-timeline-node-size);
+  border: 2px solid var(--career-timeline-color);
+  border-radius: 50%;
+  background-color: var(--career-timeline-color);
+}
+
+/* Formação: losango em vez de círculo. */
+.career-timeline__node--education {
+  border-radius: 2px;
+  rotate: 45deg;
+}
+
+/* Cargo atual: anel em volta do marcador. */
+.career-timeline__node--current {
+  box-shadow: 0 0 0 var(--space-1)
+    color-mix(in srgb, var(--career-timeline-color) 30%, transparent);
+}
+
+.career-timeline__content {
+  grid-area: content;
+  min-width: 0;
+}
+
+@media (min-width: 64rem) {
+  .career-timeline {
+    --career-timeline-rail: 2rem;
+    --career-timeline-year-column: 8rem;
+  }
+
+  .career-timeline__item {
+    grid-template-columns:
+      var(--career-timeline-year-column) var(--career-timeline-rail)
+      minmax(0, 1fr);
+    grid-template-areas: "year node content";
+    column-gap: 0;
+  }
+
+  /* O ano fica preso no topo enquanto se lê o item e é empurrado pelo
+     próximo. */
+  .career-timeline__year {
+    position: sticky;
+    top: var(--space-6);
+    align-self: start;
+    padding-right: var(--space-4);
+    font-size: 3rem;
+  }
+
+  .career-timeline__node {
+    align-self: start;
+    margin-top: var(--space-3);
+  }
+
+  .career-timeline__content {
+    padding-left: var(--space-6);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .career-timeline::after {
+      animation: career-timeline-fill linear both;
+      animation-timeline: --career-timeline;
+    }
+
+    /* Cada marcador acende quando o preenchimento chega nele (cruza o meio da
+       tela). */
+    .career-timeline__node {
+      animation: career-timeline-node linear both;
+      animation-timeline: view(block 50% 50%);
+    }
+  }
+}
+
+@keyframes career-timeline-fill {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes career-timeline-node {
+  from {
+    background-color: var(--color-bg);
+  }
+}

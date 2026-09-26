@@ -1,0 +1,195 @@
+.career-job {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--prose-max);
+}
+
+.career-job__company {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.career-job__roles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.career-job__role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-3);
+}
+
+.career-job__role-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-weight: 500;
+}
+
+.career-job__badge {
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-brand);
+  border-radius: var(--radius-md);
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.career-job__period,
+.career-job__location {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.career-job__location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-2);
+}
+
+/* Remoto / híbrido: etiqueta neutra, para não competir com "Atual". */
+.career-job__work-mode {
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 0.75rem;
+}
+
+.career-job__summary {
+  margin: 0;
+}
+
+/* Conquistas: com número (--metric), ele fica numa coluna larga, pendurada à
+   esquerda; sem número, um traço curto numa coluna estreita. */
+.career-job__achievements {
+  --career-job-metric-column: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.career-job__achievement {
+  display: grid;
+  grid-template-columns: var(--space-3) minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--space-3);
+}
+
+.career-job__achievement--metric {
+  grid-template-columns: var(--career-job-metric-column) minmax(0, 1fr);
+}
+
+.career-job__metric {
+  color: var(--color-brand);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.career-job__bullet {
+  justify-self: end;
+  width: var(--space-3);
+  height: 2px;
+  background-color: var(--color-brand);
+  /* Alinha o traço com o meio da primeira linha do texto. */
+  translate: 0 -0.3em;
+}
+
+/* Tecnologias: <details> nativo, fechado por padrão. */
+.career-job__stack {
+  margin-top: var(--space-2);
+}
+
+.career-job__stack-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  color: var(--color-text);
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+.career-job__stack-toggle::-webkit-details-marker {
+  display: none;
+}
+
+/* Seta desenhada com borda; gira quando o <details> abre. */
+.career-job__stack-toggle::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  rotate: -45deg;
+  transition: rotate 0.2s ease;
+}
+
+.career-job__stack-toggle:hover {
+  color: var(--color-hover);
+}
+
+/* [open] é o estado nativo do <details> (como :hover), por isso o seletor de
+   atributo. */
+.career-job__stack[open] .career-job__stack-toggle::before {
+  rotate: 45deg;
+}
+
+.career-job__chips {
+  padding-top: var(--space-2);
+}
+
+@media (min-width: 64rem) {
+  .career-job__company {
+    font-size: 1.75rem;
+  }
+
+  .career-job__achievements {
+    --career-job-metric-column: 5rem;
+  }
+
+  .career-job__metric {
+    font-size: 2rem;
+  }
+}
+
+/* Abrir as tecnologias anima a altura (resposta à ação de quem clicou). Onde
+   não há ::details-content, o <details> abre normalmente, sem animação. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports selector(::details-content) {
+    .career-job__stack {
+      interpolate-size: allow-keywords;
+    }
+
+    .career-job__stack::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition:
+        block-size 0.3s ease,
+        content-visibility 0.3s allow-discrete;
+    }
+
+    .career-job__stack[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
