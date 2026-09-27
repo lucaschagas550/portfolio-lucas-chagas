@@ -7,7 +7,6 @@ import { classNames } from "~/utils/class-names";
 import "./tech-chips.css";
 
 type TechChipsProps = {
-  // Nomes já no idioma da página.
   items: { name: string; iconSlug?: TechIconSlug }[];
   size?: "lg";
   // Entrada em cascata ao carregar (use só em listas visíveis de início).

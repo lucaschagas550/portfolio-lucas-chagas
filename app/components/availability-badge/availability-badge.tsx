@@ -4,7 +4,6 @@ import "./availability-badge.css";
 
 type AvailabilityBadgeProps = { available: boolean };
 
-// Status de disponibilidade: o texto carrega a informação; a bolinha é decorativa.
 export function AvailabilityBadge({ available }: AvailabilityBadgeProps) {
   const { translations } = useI18n();
 

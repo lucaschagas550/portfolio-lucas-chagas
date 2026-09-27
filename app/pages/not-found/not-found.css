@@ -98,7 +98,6 @@
   text-decoration: none;
 }
 
-/* O nome herda a cor do link (e o roxo do hover); a descrição fica apagada. */
 .not-found__link:hover,
 .not-found__link:focus-visible {
   color: var(--color-hover);

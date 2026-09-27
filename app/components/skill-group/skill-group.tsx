@@ -8,7 +8,6 @@ type SkillGroupProps = {
   // Base dos ids internos (o título nomeia a seção via aria-labelledby).
   id: string;
   title: string;
-  // Nomes já no idioma da página.
   skills: { name: string; iconSlug?: TechIconSlug }[];
   headingLevel?: 2 | 3;
   // Rótulo curto acima do título (ex.: "Especialidade").

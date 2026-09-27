@@ -12,7 +12,6 @@
   transition: color 0.15s ease;
 }
 
-/* Página atual: só o texto ganha destaque (cor cheia + negrito). */
 .nav-item--active {
   color: var(--color-text);
   font-weight: 700;

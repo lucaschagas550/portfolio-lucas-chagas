@@ -40,7 +40,6 @@ function getIsDark() {
 // No servidor o tema é desconhecido: renderiza como claro e corrige ao hidratar.
 const getServerIsDark = () => false;
 
-// Alterna entre claro e escuro. Sem escolha salva, começa no tema do sistema.
 export function ThemeToggle() {
   const { translations } = useI18n();
   const isDark = useSyncExternalStore(subscribe, getIsDark, getServerIsDark);

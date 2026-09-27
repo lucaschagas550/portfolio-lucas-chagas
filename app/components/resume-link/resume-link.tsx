@@ -14,7 +14,6 @@ type ResumeLinkProps = Omit<
   variant?: "link" | "button";
 };
 
-// Baixa o currículo no idioma da página. "button" é a versão de destaque.
 export function ResumeLink({
   variant = "link",
   className,

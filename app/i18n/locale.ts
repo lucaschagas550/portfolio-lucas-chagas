@@ -2,7 +2,6 @@ export const locales = ["pt", "en"] as const;
 
 export type Locale = (typeof locales)[number];
 
-// Valor do atributo lang do <html>.
 export const htmlLang: Record<Locale, string> = { pt: "pt-BR", en: "en" };
 
 // Só o inglês tem prefixo na URL; o português é o idioma padrão (sem prefixo).
@@ -33,7 +32,6 @@ export function pathForLocale(path: string, locale: Locale): string {
   return path === "/" ? ENGLISH_PREFIX : `${ENGLISH_PREFIX}${path}`;
 }
 
-// Mesmo caminho da página atual, no outro idioma.
 export function switchLocalePath(pathname: string): string {
   return pathForLocale(stripLocale(pathname), otherLocale(getLocale(pathname)));
 }

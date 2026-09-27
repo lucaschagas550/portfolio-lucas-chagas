@@ -26,7 +26,6 @@ export type CareerJobEntry = {
   id: string;
   company: string;
   location: string;
-  // Modelo de trabalho, quando informado.
   workMode?: WorkMode;
   // Ano mostrado na linha do tempo (início na empresa).
   year: number;

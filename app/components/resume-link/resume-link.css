@@ -19,7 +19,6 @@
   height: 1.25rem;
 }
 
-/* Versão de destaque (ex.: no hero): contorno que vira fundo cheio, invertendo as cores do tema. */
 .resume-link--button {
   padding: 0 var(--space-6);
   border: 2px solid currentcolor;

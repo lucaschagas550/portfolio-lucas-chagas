@@ -7,7 +7,6 @@ import "./career-timeline.css";
 export type CareerTimelineItem = {
   id: string;
   year: number;
-  // Formação usa um marcador diferente (losango).
   marker?: "education";
   current?: boolean;
   content: ReactNode;

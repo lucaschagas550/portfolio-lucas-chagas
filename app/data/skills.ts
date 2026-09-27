@@ -24,7 +24,6 @@ export type SkillCategory<Id extends string> = {
   skills: Skill[];
 };
 
-// Especialidade: back-end no ecossistema .NET.
 export const specialty: SkillCategory<"dotnet"> = {
   id: "dotnet",
   skills: [

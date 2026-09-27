@@ -119,7 +119,6 @@ svg {
   outline-offset: 2px;
 }
 
-/* Texto só para leitores de tela (ex.: o valor real de um número animado). */
 .visually-hidden {
   position: absolute;
   width: 1px;

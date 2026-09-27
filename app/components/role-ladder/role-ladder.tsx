@@ -5,14 +5,13 @@ import { classNames } from "~/utils/class-names";
 import "./role-ladder.css";
 
 type RoleLadderProps = {
-  // Cargos já no idioma da página, do primeiro ao atual.
+  // Do primeiro cargo ao atual (o último é destacado).
   steps: { title: string; year: number }[];
   // Nome acessível da lista (ex.: "Evolução de cargos").
   label: string;
   className?: string;
 };
 
-// Escada de cargos: cada degrau é mais alto que o anterior.
 export function RoleLadder({ steps, label, className }: RoleLadderProps) {
   return (
     <ol

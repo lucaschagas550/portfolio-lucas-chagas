@@ -16,7 +16,6 @@ const MAIL_ICON = "M3 5h18v14H3zM3 6l9 7 9-7";
 
 type ContactEmailProps = { email: string };
 
-// O endereço em destaque, com as ações de copiar e de abrir o app de e-mail.
 export function ContactEmail({ email }: ContactEmailProps) {
   const { translations } = useI18n();
   const [status, setStatus] = useState<CopyStatus>("idle");

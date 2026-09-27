@@ -5,7 +5,6 @@ import { classNames } from "~/utils/class-names";
 import "./stat-highlights.css";
 
 type StatHighlightsProps = {
-  // Rótulos já no idioma da página.
   items: { id: string; value: number; suffix?: string; label: string }[];
   // Nome acessível da lista (ex.: "Destaques").
   label: string;

@@ -7,7 +7,6 @@ import "./career-job.css";
 type CareerJobProps = {
   company: string;
   location: string;
-  // Modelo de trabalho já no idioma da página (ex.: "Remoto").
   workMode?: string;
   // Textos já no idioma da página e períodos já formatados.
   roles: { title: string; period: string; current?: boolean }[];
@@ -21,7 +20,6 @@ type CareerJobProps = {
   };
 };
 
-// Conteúdo de uma empresa na linha do tempo da História.
 export function CareerJob({
   company,
   location,
