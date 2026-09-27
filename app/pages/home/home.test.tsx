@@ -28,6 +28,18 @@ describe("Home", () => {
     ]);
   });
 
+  it("pré-carrega com prioridade alta o fundo do hero de cada tema", () => {
+    renderHome();
+
+    const preloads = document.head.querySelectorAll(
+      'link[rel="preload"][as="image"][fetchpriority="high"]',
+    );
+    expect(Array.from(preloads, (link) => link.getAttribute("media"))).toEqual([
+      "(prefers-color-scheme: light)",
+      "(prefers-color-scheme: dark)",
+    ]);
+  });
+
   it("exibe a foto de perfil", () => {
     renderHome();
 

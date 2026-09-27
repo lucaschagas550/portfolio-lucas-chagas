@@ -129,10 +129,11 @@ svg {
   border: 0;
 }
 
-/* Surge (fade + subida) conforme o elemento entra na tela ao rolar. Só com
-   movimento permitido e onde há scroll-driven animations; sem suporte, o
-   conteúdo aparece normalmente. O que já está visível ao carregar fica no
-   estado final. */
+/* Surge (subida) conforme o elemento entra na tela ao rolar. Só com movimento
+   permitido e onde há scroll-driven animations; sem suporte, o conteúdo
+   aparece normalmente. O que já está visível ao carregar fica no estado final.
+   Não mexe na opacidade: um elemento parado na borda da tela, no meio da
+   animação, teria texto sem contraste. */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .reveal {
@@ -145,7 +146,6 @@ svg {
 
 @keyframes reveal-in {
   from {
-    opacity: 0;
-    transform: translateY(var(--space-4));
+    translate: 0 var(--space-8);
   }
 }

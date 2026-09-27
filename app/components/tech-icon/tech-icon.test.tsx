@@ -12,6 +12,15 @@ describe("TechIcon", () => {
     expect(icon).toHaveAttribute("aria-hidden", "true");
   });
 
+  it("só baixa a imagem quando ela fica visível", () => {
+    const { container } = render(<TechIcon iconSlug="docker" />);
+
+    const icon = container.querySelector("img");
+    expect(icon).toHaveAttribute("loading", "lazy");
+    expect(icon).toHaveAttribute("width");
+    expect(icon).toHaveAttribute("height");
+  });
+
   it("desenha o ícone da marca com a cor dela", () => {
     const { container } = render(<TechIcon iconSlug="dotnet" />);
 

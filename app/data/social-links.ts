@@ -6,6 +6,9 @@ export type SocialLink = {
   icon: SocialLinkIcon;
 };
 
+// Fonte única do endereço: a página Contato o exibe e o link "Email" deriva dele.
+export const contactEmail = "lucasandrade595@gmail.com";
+
 export const socialLinks: SocialLink[] = [
   {
     name: "GitHub",
@@ -19,7 +22,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "Email",
-    href: "mailto:lucasandrade595@gmail.com",
+    href: `mailto:${contactEmail}`,
     icon: "email",
   },
 ];

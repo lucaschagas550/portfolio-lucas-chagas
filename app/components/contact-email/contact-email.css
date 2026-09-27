@@ -1,0 +1,92 @@
+/* O endereço é a peça principal da página Contato: grande o bastante para ler
+   de longe, e ainda inteiro em uma linha do notebook em diante. */
+.contact-email__address {
+  margin: 0 0 var(--space-6);
+  font-size: clamp(2rem, 9.5vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+
+/* Sublinhado que cruza o endereço ao copiar: cresce da esquerda para a direita
+   e, quando quebra em duas linhas, percorre uma depois da outra. */
+.contact-email__text {
+  padding-bottom: 0.06em;
+  background-image: linear-gradient(var(--color-brand), var(--color-brand));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 0.08em;
+}
+
+.contact-email__text--copied {
+  background-size: 100% 0.08em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-email__text {
+    transition: background-size 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+
+.contact-email__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Mesmo desenho do botão do currículo: contorno que vira fundo cheio no hover. */
+.contact-email__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  padding: 0 var(--space-6);
+  border: 2px solid currentcolor;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.contact-email__button:hover {
+  border-color: var(--color-text);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* A ação principal (copiar) já nasce cheia; no hover, ganha o roxo da marca. */
+.contact-email__button--solid {
+  border-color: var(--color-text);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.contact-email__button--solid:hover {
+  border-color: var(--color-hover);
+  background-color: var(--color-hover);
+}
+
+.contact-email__icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Vazio na maior parte do tempo: sem altura nem margem, para não empurrar a página. */
+.contact-email__status {
+  margin: 0;
+}
+
+.contact-email__error {
+  display: block;
+  padding-top: var(--space-2);
+  color: var(--color-text-muted);
+}

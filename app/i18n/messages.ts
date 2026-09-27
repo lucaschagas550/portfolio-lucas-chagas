@@ -4,9 +4,6 @@ import type { Locale } from "~/i18n/locale";
 // chaves, senão o TypeScript acusa. Nomes próprios (GitHub, React...) não
 // entram aqui.
 const pt = {
-  common: {
-    underConstruction: "Em construção.",
-  },
   navbar: {
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
@@ -35,6 +32,12 @@ const pt = {
   },
   resume: {
     label: "Baixar currículo",
+  },
+  contactEmail: {
+    copy: "Copiar e-mail",
+    copied: "E-mail copiado",
+    write: "Escrever e-mail",
+    copyError: "Não foi possível copiar. Selecione o endereço acima.",
   },
   footer: {
     credits: "Construído e desenvolvido por Lucas Chagas",
@@ -117,9 +120,20 @@ const pt = {
   contato: {
     meta: {
       title: "Contato | Lucas Chagas",
-      description: "Entre em contato com Lucas Chagas.",
+      description:
+        "Fale com Lucas Chagas, desenvolvedor full-stack especializado em .NET: e-mail, LinkedIn, GitHub e currículo.",
     },
     title: "Contato",
+    intro:
+      "Quer conversar sobre uma vaga, um projeto ou uma ideia em .NET? O caminho mais rápido é o e-mail: conte a empresa, o desafio e o formato de trabalho que você imagina.",
+    channelsTitle: "Outros canais",
+    channels: {
+      linkedin: "Histórico profissional e mensagens",
+      github: "Código e projetos pessoais",
+    },
+    resumeTitle: "Currículo",
+    resumeDescription: "Versão em PDF para compartilhar",
+    newTab: "(abre em nova aba)",
   },
   errors: {
     defaultTitle: "Ops!",
@@ -133,9 +147,6 @@ const pt = {
 export type Messages = typeof pt;
 
 const en: Messages = {
-  common: {
-    underConstruction: "Under construction.",
-  },
   navbar: {
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -164,6 +175,12 @@ const en: Messages = {
   },
   resume: {
     label: "Download resume",
+  },
+  contactEmail: {
+    copy: "Copy email",
+    copied: "Email copied",
+    write: "Write an email",
+    copyError: "Couldn't copy. Select the address above.",
   },
   footer: {
     credits: "Built and developed by Lucas Chagas",
@@ -245,9 +262,20 @@ const en: Messages = {
   contato: {
     meta: {
       title: "Contact | Lucas Chagas",
-      description: "Get in touch with Lucas Chagas.",
+      description:
+        "Get in touch with Lucas Chagas, a full-stack developer specialized in .NET: email, LinkedIn, GitHub and resume.",
     },
     title: "Contact",
+    intro:
+      "Want to talk about a role, a project or an idea in .NET? Email is the fastest way: tell me about the company, the challenge and the kind of work arrangement you have in mind.",
+    channelsTitle: "Other channels",
+    channels: {
+      linkedin: "Work history and messages",
+      github: "Code and side projects",
+    },
+    resumeTitle: "Resume",
+    resumeDescription: "PDF version to share",
+    newTab: "(opens in a new tab)",
   },
   errors: {
     defaultTitle: "Oops!",

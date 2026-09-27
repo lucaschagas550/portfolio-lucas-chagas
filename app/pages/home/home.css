@@ -8,7 +8,7 @@
   width: 100%;
   min-height: 33.75rem;
   padding: var(--space-8) 15%;
-  background-image: url("./images/home-hero-bg-light.png");
+  background-image: url("./images/home-hero-bg-light.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -19,12 +19,12 @@
    imagem escura segue o sistema (sem escolha) ou o tema escolhido no seletor. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .home__hero {
-    background-image: url("./images/home-hero-bg-dark.png");
+    background-image: url("./images/home-hero-bg-dark.webp");
   }
 }
 
 :root[data-theme="dark"] .home__hero {
-  background-image: url("./images/home-hero-bg-dark.png");
+  background-image: url("./images/home-hero-bg-dark.webp");
 }
 
 .home__hero-content {

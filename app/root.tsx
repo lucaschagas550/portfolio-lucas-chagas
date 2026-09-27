@@ -13,20 +13,23 @@ import { htmlLang } from "~/i18n/locale";
 import { useI18n } from "~/i18n/use-i18n";
 import { themeScript } from "~/utils/theme-script";
 
+import roboto400 from "@fontsource/roboto/files/roboto-latin-400-normal.woff2?url";
+
 import type { Route } from "./+types/root";
+import "@fontsource/roboto/latin-400.css";
+import "@fontsource/roboto/latin-500.css";
+import "@fontsource/roboto/latin-700.css";
 import "./app.css";
 import "./error-page.css";
 
+// Fonte servida pelo próprio site; o peso do texto corrido é pré-carregado.
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
+    rel: "preload",
+    href: roboto400,
+    as: "font",
+    type: "font/woff2",
     crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap",
   },
 ];
 

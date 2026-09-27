@@ -93,7 +93,19 @@ export function TechIcon({ iconSlug, className }: TechIconProps) {
   const imageSrc = iconSlug ? imageIcons[iconSlug] : undefined;
 
   if (imageSrc) {
-    return <img src={imageSrc} alt="" aria-hidden="true" className={classes} />;
+    // `lazy`: na História os ícones ficam num <details> fechado e só são
+    // baixados quando alguém o abre. O tamanho real vem do CSS.
+    return (
+      <img
+        src={imageSrc}
+        alt=""
+        aria-hidden="true"
+        width={16}
+        height={16}
+        loading="lazy"
+        className={classes}
+      />
+    );
   }
 
   const brandIcon = iconSlug ? brandIcons[iconSlug] : undefined;

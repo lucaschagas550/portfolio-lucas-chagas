@@ -5,6 +5,10 @@ import { techStack } from "~/data/tech-stack";
 import { pageMeta } from "~/i18n/page-meta";
 import { useI18n } from "~/i18n/use-i18n";
 
+import { preload } from "react-dom";
+
+import heroBgDark from "./images/home-hero-bg-dark.webp";
+import heroBgLight from "./images/home-hero-bg-light.webp";
 import profileImage from "./images/profile.jpg";
 import "~/pages/home/home.css";
 
@@ -14,6 +18,19 @@ export function meta({ location }: { location: { pathname: string } }) {
 
 export default function Home() {
   const { t } = useI18n();
+
+  // O fundo do hero é o LCP, mas só seria descoberto depois do CSS. O tema
+  // do sistema escolhe a imagem; quem forçou o outro tema baixa a dele pelo CSS.
+  preload(heroBgLight, {
+    as: "image",
+    fetchPriority: "high",
+    media: "(prefers-color-scheme: light)",
+  });
+  preload(heroBgDark, {
+    as: "image",
+    fetchPriority: "high",
+    media: "(prefers-color-scheme: dark)",
+  });
 
   return (
     <main className="home">
