@@ -7,3 +7,11 @@ export type LocalizedText = string | Record<Locale, string>;
 export function localize(text: LocalizedText, locale: Locale): string {
   return typeof text === "string" ? text : text[locale];
 }
+
+// Lista com `name` traduzível (skills, stack) com o nome já no idioma.
+export function localizeNames<Item extends { name: LocalizedText }>(
+  items: Item[],
+  locale: Locale,
+) {
+  return items.map((item) => ({ ...item, name: localize(item.name, locale) }));
+}

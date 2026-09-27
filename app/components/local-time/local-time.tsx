@@ -16,12 +16,12 @@ function subscribe(onChange: () => void) {
 const getServerTime = () => undefined;
 
 export function LocalTime({ className }: { className?: string }) {
-  const { locale, t } = useI18n();
+  const { locale, translations } = useI18n();
   const time = useSyncExternalStore(
     subscribe,
     () => formatLocalTime(new Date(), locale),
     getServerTime,
   );
 
-  return <p className={className}>{t.location.label(time)}</p>;
+  return <p className={className}>{translations.location.label(time)}</p>;
 }

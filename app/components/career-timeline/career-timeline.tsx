@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { classNames } from "~/utils/class-names";
+
 import "./career-timeline.css";
 
 export type CareerTimelineItem = {
@@ -25,24 +27,20 @@ export function CareerTimeline({
   variant,
   className,
 }: CareerTimelineProps) {
-  const classes = [
+  const classes = classNames(
     "career-timeline",
     variant && `career-timeline--${variant}`,
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <ol className={classes}>
       {items.map((item) => {
-        const nodeClasses = [
+        const nodeClasses = classNames(
           "career-timeline__node",
           item.marker && `career-timeline__node--${item.marker}`,
           item.current && "career-timeline__node--current",
-        ]
-          .filter(Boolean)
-          .join(" ");
+        );
 
         return (
           <li key={item.id} className="career-timeline__item">

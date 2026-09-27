@@ -1,5 +1,6 @@
 import { TechChips } from "~/components/tech-chips/tech-chips";
 import type { TechIconSlug } from "~/data/tech-stack";
+import { classNames } from "~/utils/class-names";
 
 import "./career-job.css";
 
@@ -65,11 +66,10 @@ export function CareerJob({
           {achievements.map((achievement) => (
             <li
               key={achievement.text}
-              className={
-                achievement.metric
-                  ? "career-job__achievement career-job__achievement--metric"
-                  : "career-job__achievement"
-              }
+              className={classNames(
+                "career-job__achievement",
+                achievement.metric && "career-job__achievement--metric",
+              )}
             >
               {achievement.metric ? (
                 <span className="career-job__metric">{achievement.metric}</span>

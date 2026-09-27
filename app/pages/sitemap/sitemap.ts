@@ -1,4 +1,5 @@
-import { buildSitemap, resolveOrigin } from "~/utils/sitemap";
+import { resolveOrigin } from "~/utils/site-origin";
+import { buildSitemap } from "~/utils/sitemap";
 
 // Rota de recurso: responde o XML direto, sem renderizar página.
 export function loader({ request }: { request: Request }) {

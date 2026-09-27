@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   getLocale,
-  localizedPath,
+  otherLocale,
+  pathForLocale,
   stripLocale,
   switchLocalePath,
 } from "~/i18n/locale";
@@ -24,6 +25,13 @@ describe("getLocale", () => {
   });
 });
 
+describe("otherLocale", () => {
+  it("devolve o idioma oposto", () => {
+    expect(otherLocale("pt")).toBe("en");
+    expect(otherLocale("en")).toBe("pt");
+  });
+});
+
 describe("stripLocale", () => {
   it("remove o prefixo /en e mantém o resto do caminho", () => {
     expect(stripLocale("/en")).toBe("/");
@@ -35,15 +43,15 @@ describe("stripLocale", () => {
   });
 });
 
-describe("localizedPath", () => {
+describe("pathForLocale", () => {
   it("mantém o caminho em português", () => {
-    expect(localizedPath("/", "pt")).toBe("/");
-    expect(localizedPath("/historia", "pt")).toBe("/historia");
+    expect(pathForLocale("/", "pt")).toBe("/");
+    expect(pathForLocale("/historia", "pt")).toBe("/historia");
   });
 
   it("acrescenta o prefixo /en em inglês", () => {
-    expect(localizedPath("/", "en")).toBe("/en");
-    expect(localizedPath("/historia", "en")).toBe("/en/historia");
+    expect(pathForLocale("/", "en")).toBe("/en");
+    expect(pathForLocale("/historia", "en")).toBe("/en/historia");
   });
 });
 

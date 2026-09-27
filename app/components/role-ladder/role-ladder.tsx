@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { classNames } from "~/utils/class-names";
+
 import "./role-ladder.css";
 
 type RoleLadderProps = {
@@ -12,22 +14,19 @@ type RoleLadderProps = {
 
 // Escada de cargos: cada degrau é mais alto que o anterior.
 export function RoleLadder({ steps, label, className }: RoleLadderProps) {
-  const classes = ["role-ladder", className].filter(Boolean).join(" ");
-
   return (
     <ol
-      className={classes}
+      className={classNames("role-ladder", className)}
       aria-label={label}
       style={{ "--role-ladder-steps": steps.length } as CSSProperties}
     >
       {steps.map((step, index) => (
         <li
           key={step.title}
-          className={
-            index === steps.length - 1
-              ? "role-ladder__step role-ladder__step--current"
-              : "role-ladder__step"
-          }
+          className={classNames(
+            "role-ladder__step",
+            index === steps.length - 1 && "role-ladder__step--current",
+          )}
           style={{ "--role-ladder-step": index + 1 } as CSSProperties}
         >
           <span className="role-ladder__title">{step.title}</span>

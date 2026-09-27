@@ -2,10 +2,11 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { SocialLinks } from "~/components/social-links/social-links";
+import { socialLinks } from "~/data/social-links";
 
 describe("SocialLinks", () => {
   it("exibe os links de GitHub, LinkedIn e Email com os destinos corretos", () => {
-    render(<SocialLinks />);
+    render(<SocialLinks links={socialLinks} />);
 
     expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
       "href",
@@ -21,8 +22,24 @@ describe("SocialLinks", () => {
     );
   });
 
+  it("exibe só os links recebidos", () => {
+    render(
+      <SocialLinks
+        links={[
+          { name: "GitHub", href: "https://github.com/x", icon: "github" },
+        ]}
+      />,
+    );
+
+    expect(screen.getAllByRole("link")).toHaveLength(1);
+    expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
+      "href",
+      "https://github.com/x",
+    );
+  });
+
   it("abre GitHub e LinkedIn em uma nova aba, mas não o Email", () => {
-    render(<SocialLinks />);
+    render(<SocialLinks links={socialLinks} />);
 
     expect(screen.getByRole("link", { name: "GitHub" })).toHaveAttribute(
       "target",
@@ -38,7 +55,7 @@ describe("SocialLinks", () => {
   });
 
   it("exibe um tooltip com o nome da rede em cada link", () => {
-    render(<SocialLinks />);
+    render(<SocialLinks links={socialLinks} />);
 
     expect(
       within(screen.getByRole("link", { name: "GitHub" })).getByText("GitHub"),

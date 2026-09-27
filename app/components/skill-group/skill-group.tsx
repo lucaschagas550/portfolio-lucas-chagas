@@ -1,5 +1,6 @@
 import { TechChips } from "~/components/tech-chips/tech-chips";
 import type { TechIconSlug } from "~/data/tech-stack";
+import { classNames } from "~/utils/class-names";
 
 import "./skill-group.css";
 
@@ -30,13 +31,11 @@ export function SkillGroup({
   const Heading = headingLevel === 3 ? "h3" : "h2";
   const titleId = `${id}-title`;
   const isFeatured = variant === "featured";
-  const classes = [
+  const classes = classNames(
     "skill-group",
     variant && `skill-group--${variant}`,
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <section className={classes} aria-labelledby={titleId}>

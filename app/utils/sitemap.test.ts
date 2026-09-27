@@ -1,11 +1,6 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import {
-  buildRobots,
-  buildSitemap,
-  normalizeOrigin,
-  resolveOrigin,
-} from "~/utils/sitemap";
+import { buildSitemap } from "~/utils/sitemap";
 
 const origin = "https://lucaschagas.dev";
 
@@ -59,41 +54,5 @@ describe("buildSitemap", () => {
     expect(locs(buildSitemap("https://exemplo.com/?a=1&b=2"))[0]).toContain(
       "&amp;",
     );
-  });
-});
-
-describe("buildRobots", () => {
-  it("libera tudo e aponta para o sitemap", () => {
-    expect(buildRobots(origin)).toBe(
-      `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`,
-    );
-  });
-});
-
-describe("normalizeOrigin", () => {
-  it("remove as barras do final", () => {
-    expect(normalizeOrigin("https://a.com//")).toBe("https://a.com");
-  });
-});
-
-describe("resolveOrigin", () => {
-  afterEach(() => {
-    vi.unstubAllEnvs();
-  });
-
-  it("usa a origem da requisição quando SITE_URL não está definida", () => {
-    vi.stubEnv("SITE_URL", "");
-
-    expect(
-      resolveOrigin(new Request("http://localhost:3000/sitemap.xml")),
-    ).toBe("http://localhost:3000");
-  });
-
-  it("prefere SITE_URL quando definida", () => {
-    vi.stubEnv("SITE_URL", origin);
-
-    expect(
-      resolveOrigin(new Request("http://localhost:3000/sitemap.xml")),
-    ).toBe(origin);
   });
 });

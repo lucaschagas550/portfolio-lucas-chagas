@@ -1,7 +1,9 @@
 import type { ComponentProps } from "react";
 
+import { OutlineIcon } from "~/components/outline-icon/outline-icon";
 import { resumeFiles } from "~/data/resume";
 import { useI18n } from "~/i18n/use-i18n";
+import { classNames } from "~/utils/class-names";
 
 import "./resume-link.css";
 
@@ -18,30 +20,20 @@ export function ResumeLink({
   className,
   ...props
 }: ResumeLinkProps) {
-  const { locale, t } = useI18n();
-  const classes = [
+  const { locale, translations } = useI18n();
+  const classes = classNames(
     "resume-link",
     variant === "button" && "resume-link--button",
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <a className={classes} href={resumeFiles[locale]} download {...props}>
-      <svg
-        viewBox="0 0 24 24"
+      <OutlineIcon
         className="resume-link__icon"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 3v12M6 11l6 6 6-6M5 21h14" />
-      </svg>
-      {t.resume.label}
+        path="M12 3v12M6 11l6 6 6-6M5 21h14"
+      />
+      {translations.resume.label}
     </a>
   );
 }

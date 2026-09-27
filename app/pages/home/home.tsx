@@ -1,23 +1,24 @@
+import { preload } from "react-dom";
+
 import { ResumeLink } from "~/components/resume-link/resume-link";
 import { SocialLinks } from "~/components/social-links/social-links";
 import { TechMarquee } from "~/components/tech-marquee/tech-marquee";
+import { socialLinks } from "~/data/social-links";
 import { techStack } from "~/data/tech-stack";
 import { pageMeta } from "~/i18n/page-meta";
 import { useI18n } from "~/i18n/use-i18n";
 
-import { preload } from "react-dom";
-
 import heroBgDark from "./images/home-hero-bg-dark.webp";
 import heroBgLight from "./images/home-hero-bg-light.webp";
 import profileImage from "./images/profile.jpg";
-import "~/pages/home/home.css";
+import "./home.css";
 
 export function meta({ location }: { location: { pathname: string } }) {
   return pageMeta(location.pathname, "home");
 }
 
 export default function Home() {
-  const { t } = useI18n();
+  const { translations } = useI18n();
 
   // O fundo do hero é o LCP, mas só seria descoberto depois do CSS. O tema
   // do sistema escolhe a imagem; quem forçou o outro tema baixa a dele pelo CSS.
@@ -45,25 +46,25 @@ export default function Home() {
           />
         </div>
         <div className="home__hero-content">
-          <SocialLinks className="home__hero-socials" />
+          <SocialLinks links={socialLinks} className="home__hero-socials" />
           <h1 className="home__hero-title">Lucas Chagas</h1>
-          <p className="home__hero-subtitle">{t.home.role}</p>
+          <p className="home__hero-subtitle">{translations.home.role}</p>
           <ResumeLink variant="button" className="home__hero-resume" />
         </div>
       </section>
 
       <section className="home__about" aria-labelledby="home-about-title">
         <h2 id="home-about-title" className="home__about-title">
-          {t.home.aboutTitle}
+          {translations.home.aboutTitle}
         </h2>
-        {t.home.about.map((paragraph) => (
+        {translations.home.about.map((paragraph) => (
           <p key={paragraph} className="home__about-text">
             {paragraph}
           </p>
         ))}
         <TechMarquee
           items={techStack}
-          label={t.home.techLabel}
+          label={translations.home.techLabel}
           className="home__about-marquee"
         />
       </section>

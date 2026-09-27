@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { localize } from "~/i18n/localize";
+import { localize, localizeNames } from "~/i18n/localize";
 
 describe("localize", () => {
   it("devolve o mesmo texto nos dois idiomas quando recebe uma string", () => {
@@ -13,5 +13,19 @@ describe("localize", () => {
 
     expect(localize(text, "pt")).toBe("Microsserviços");
     expect(localize(text, "en")).toBe("Microservices");
+  });
+});
+
+describe("localizeNames", () => {
+  it("traduz o nome de cada item e mantém os outros campos", () => {
+    const items = [
+      { name: "Docker", iconSlug: "docker" },
+      { name: { pt: "Microsserviços", en: "Microservices" } },
+    ];
+
+    expect(localizeNames(items, "en")).toEqual([
+      { name: "Docker", iconSlug: "docker" },
+      { name: "Microservices" },
+    ]);
   });
 });

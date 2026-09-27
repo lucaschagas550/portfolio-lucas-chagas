@@ -2,7 +2,7 @@ import { courses } from "~/data/courses";
 
 // Números de destaque da página Habilidades, todos reais (fonte: currículo,
 // LinkedIn e a nota "Experiência profissional" do cofre Obsidian). Os
-// rótulos ficam em t.habilidades.stats.
+// rótulos ficam em translations.habilidades.stats.
 export type HighlightId = "years" | "companies" | "coverage" | "courses";
 
 export type Highlight = {

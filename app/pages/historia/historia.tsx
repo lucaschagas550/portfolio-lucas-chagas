@@ -9,11 +9,11 @@ import {
   careerTimeline,
   roleProgression,
   type CareerEntry,
-  type CareerJob as CareerJobData,
+  type CareerJobEntry,
 } from "~/data/career";
 import { education } from "~/data/education";
 import type { Locale } from "~/i18n/locale";
-import { localize } from "~/i18n/localize";
+import { localize, localizeNames } from "~/i18n/localize";
 import type { Messages } from "~/i18n/messages";
 import { pageMeta } from "~/i18n/page-meta";
 import { useI18n } from "~/i18n/use-i18n";
@@ -27,9 +27,9 @@ export function meta({ location }: { location: { pathname: string } }) {
 }
 
 function jobItem(
-  job: CareerJobData,
+  job: CareerJobEntry,
   locale: Locale,
-  t: Messages["historia"],
+  translations: Messages["historia"],
 ): CareerTimelineItem {
   return {
     id: job.id,
@@ -39,10 +39,15 @@ function jobItem(
       <CareerJob
         company={job.company}
         location={job.location}
-        workMode={job.workMode && t.workMode[job.workMode]}
+        workMode={job.workMode && translations.workMode[job.workMode]}
         roles={job.roles.map((role) => ({
           title: localize(role.title, locale),
-          period: formatPeriod(role.start, role.end, locale, t.present),
+          period: formatPeriod(
+            role.start,
+            role.end,
+            locale,
+            translations.present,
+          ),
           current: !role.end,
         }))}
         summary={job.summary && localize(job.summary, locale)}
@@ -50,14 +55,11 @@ function jobItem(
           metric: achievement.metric,
           text: localize(achievement.text, locale),
         }))}
-        stack={job.stack.map((skill) => ({
-          name: localize(skill.name, locale),
-          iconSlug: skill.iconSlug,
-        }))}
+        stack={localizeNames(job.stack, locale)}
         labels={{
-          current: t.current,
-          achievements: t.achievementsLabel,
-          stack: t.stackToggle(job.stack.length),
+          current: translations.current,
+          achievements: translations.achievementsLabel,
+          stack: translations.stackToggle(job.stack.length),
         }}
       />
     ),
@@ -67,10 +69,10 @@ function jobItem(
 function timelineItems(
   entries: CareerEntry[],
   locale: Locale,
-  t: Messages["historia"],
+  translations: Messages["historia"],
 ): CareerTimelineItem[] {
   return entries.flatMap((entry) => {
-    if (entry.kind === "job") return [jobItem(entry, locale, t)];
+    if (entry.kind === "job") return [jobItem(entry, locale, translations)];
 
     const degree = education.find((item) => item.id === entry.educationId);
     if (!degree) return [];
@@ -95,17 +97,17 @@ function timelineItems(
 }
 
 export default function Historia() {
-  const { locale, t } = useI18n();
+  const { locale, translations } = useI18n();
 
   return (
     <main className="page historia">
       <header className="historia__header">
-        <h1 className="page__title">{t.historia.title}</h1>
-        <p className="historia__intro">{t.historia.intro}</p>
+        <h1 className="page__title">{translations.historia.title}</h1>
+        <p className="historia__intro">{translations.historia.intro}</p>
       </header>
 
       <RoleLadder
-        label={t.historia.ladderLabel}
+        label={translations.historia.ladderLabel}
         steps={roleProgression.map((step) => ({
           title: localize(step.title, locale),
           year: step.year,
@@ -117,10 +119,10 @@ export default function Historia() {
         aria-labelledby="historia-timeline-title"
       >
         <h2 id="historia-timeline-title" className="historia__section-title">
-          {t.historia.timelineTitle}
+          {translations.historia.timelineTitle}
         </h2>
         <CareerTimeline
-          items={timelineItems(careerTimeline, locale, t.historia)}
+          items={timelineItems(careerTimeline, locale, translations.historia)}
         />
       </section>
 
@@ -129,11 +131,11 @@ export default function Historia() {
         aria-labelledby="historia-before-tech-title"
       >
         <h2 id="historia-before-tech-title" className="historia__section-title">
-          {t.historia.beforeTechTitle}
+          {translations.historia.beforeTechTitle}
         </h2>
         <CareerTimeline
           variant="muted"
-          items={timelineItems(beforeTech, locale, t.historia)}
+          items={timelineItems(beforeTech, locale, translations.historia)}
         />
       </section>
     </main>

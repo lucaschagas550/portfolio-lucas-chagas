@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import { TechIcon } from "~/components/tech-icon/tech-icon";
 import type { TechIconSlug } from "~/data/tech-stack";
+import { classNames } from "~/utils/class-names";
 
 import "./tech-chips.css";
 
@@ -15,14 +16,12 @@ type TechChipsProps = {
 };
 
 export function TechChips({ items, size, cascade, className }: TechChipsProps) {
-  const classes = [
+  const classes = classNames(
     "tech-chips",
     size && `tech-chips--${size}`,
     cascade && "tech-chips--cascade",
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <ul className={classes}>

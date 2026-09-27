@@ -6,14 +6,14 @@ type AvailabilityBadgeProps = { available: boolean };
 
 // Status de disponibilidade: o texto carrega a informação; a bolinha é decorativa.
 export function AvailabilityBadge({ available }: AvailabilityBadgeProps) {
-  const { t } = useI18n();
+  const { translations } = useI18n();
 
   if (!available) return null;
 
   return (
     <p className="availability-badge">
       <span className="availability-badge__dot" aria-hidden="true" />
-      {t.availability.available}
+      {translations.availability.available}
     </p>
   );
 }

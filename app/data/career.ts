@@ -21,7 +21,7 @@ export type CareerAchievement = {
 
 export type WorkMode = "remote" | "hybrid";
 
-export type CareerJob = {
+export type CareerJobEntry = {
   kind: "job";
   id: string;
   company: string;
@@ -43,7 +43,7 @@ export type CareerMilestone = {
   year: number;
 };
 
-export type CareerEntry = CareerJob | CareerMilestone;
+export type CareerEntry = CareerJobEntry | CareerMilestone;
 
 const intern = { pt: "Estagiário de desenvolvimento", en: "Software intern" };
 const midLevel = { pt: "Desenvolvedor pleno", en: "Mid-level developer" };
@@ -360,7 +360,7 @@ export const careerTimeline: CareerEntry[] = [
   },
 ];
 
-export const beforeTech: CareerJob[] = [
+export const beforeTech: CareerJobEntry[] = [
   {
     kind: "job",
     id: "exercito",

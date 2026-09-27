@@ -27,13 +27,13 @@ const channelLinks = socialLinks.filter(
 );
 
 export default function Contato() {
-  const { t } = useI18n();
+  const { translations } = useI18n();
 
   return (
     <main className="page contato">
       <header className="contato__header">
-        <h1 className="page__title">{t.contato.title}</h1>
-        <p className="contato__intro">{t.contato.intro}</p>
+        <h1 className="page__title">{translations.contato.title}</h1>
+        <p className="contato__intro">{translations.contato.intro}</p>
         <div className="contato__status">
           <AvailabilityBadge available={availability.available} />
           <LocalTime className="contato__location" />
@@ -47,7 +47,7 @@ export default function Contato() {
         aria-labelledby="contato-channels-title"
       >
         <h2 id="contato-channels-title" className="contato__section-title">
-          {t.contato.channelsTitle}
+          {translations.contato.channelsTitle}
         </h2>
         <ul className="contato__channels">
           {channelLinks.map((link) => (
@@ -59,25 +59,27 @@ export default function Contato() {
                 rel="noopener noreferrer"
               >
                 {link.name}{" "}
-                <span className="visually-hidden">{t.contato.newTab}</span>
+                <span className="visually-hidden">
+                  {translations.contato.newTab}
+                </span>
               </a>
               <div className="contato__channel-info">
                 <span className="contato__channel-handle">
                   {displayUrl(link.href)}
                 </span>
                 <span className="contato__channel-detail">
-                  {t.contato.channels[link.icon]}
+                  {translations.contato.channels[link.icon]}
                 </span>
               </div>
             </li>
           ))}
           <li className="contato__channel">
             <span className="contato__channel-name">
-              {t.contato.resumeTitle}
+              {translations.contato.resumeTitle}
             </span>
             <div className="contato__channel-info">
               <span className="contato__channel-detail">
-                {t.contato.resumeDescription}
+                {translations.contato.resumeDescription}
               </span>
               <ResumeLink className="contato__channel-resume" />
             </div>

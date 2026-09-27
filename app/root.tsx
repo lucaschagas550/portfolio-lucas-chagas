@@ -65,14 +65,14 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  const { t } = useI18n();
-  let message = t.errors.defaultTitle;
-  let details = t.errors.defaultDetails;
+  const { translations } = useI18n();
+  let message = translations.errors.defaultTitle;
+  let details = translations.errors.defaultDetails;
   let stack: string | undefined;
 
   // Endereços sem página não chegam aqui: a rota "*" (not-found) os atende.
   if (isRouteErrorResponse(error)) {
-    message = t.errors.genericTitle;
+    message = translations.errors.genericTitle;
     details = error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;

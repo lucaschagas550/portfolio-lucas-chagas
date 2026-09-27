@@ -3,9 +3,8 @@ import { StatHighlights } from "~/components/stat-highlights/stat-highlights";
 import { courses } from "~/data/courses";
 import { education } from "~/data/education";
 import { highlights } from "~/data/highlights";
-import { complementarySkills, specialty, type Skill } from "~/data/skills";
-import type { Locale } from "~/i18n/locale";
-import { localize } from "~/i18n/localize";
+import { complementarySkills, specialty } from "~/data/skills";
+import { localize, localizeNames } from "~/i18n/localize";
 import { pageMeta } from "~/i18n/page-meta";
 import { useI18n } from "~/i18n/use-i18n";
 
@@ -16,37 +15,30 @@ export function meta({ location }: { location: { pathname: string } }) {
   return pageMeta(location.pathname, "habilidades");
 }
 
-function localizeSkills(skills: Skill[], locale: Locale) {
-  return skills.map((skill) => ({
-    name: localize(skill.name, locale),
-    iconSlug: skill.iconSlug,
-  }));
-}
-
 export default function Habilidades() {
-  const { locale, t } = useI18n();
+  const { locale, translations } = useI18n();
 
   return (
     <main className="page habilidades">
       <header className="habilidades__header">
-        <h1 className="page__title">{t.habilidades.title}</h1>
-        <p className="habilidades__intro">{t.habilidades.intro}</p>
+        <h1 className="page__title">{translations.habilidades.title}</h1>
+        <p className="habilidades__intro">{translations.habilidades.intro}</p>
       </header>
 
       <StatHighlights
-        label={t.habilidades.statsLabel}
+        label={translations.habilidades.statsLabel}
         items={highlights.map((highlight) => ({
           ...highlight,
-          label: t.habilidades.stats[highlight.id],
+          label: translations.habilidades.stats[highlight.id],
         }))}
       />
 
       <SkillGroup
         id={specialty.id}
-        title={t.habilidades.specialty.title}
-        eyebrow={t.habilidades.specialty.label}
-        description={t.habilidades.specialty.description}
-        skills={localizeSkills(specialty.skills, locale)}
+        title={translations.habilidades.specialty.title}
+        eyebrow={translations.habilidades.specialty.label}
+        description={translations.habilidades.specialty.description}
+        skills={localizeNames(specialty.skills, locale)}
         variant="featured"
       />
 
@@ -58,15 +50,15 @@ export default function Habilidades() {
           id="habilidades-complementary-title"
           className="habilidades__section-title reveal"
         >
-          {t.habilidades.complementaryTitle}
+          {translations.habilidades.complementaryTitle}
         </h2>
         <div className="habilidades__grid">
           {complementarySkills.map((category) => (
             <SkillGroup
               key={category.id}
               id={category.id}
-              title={t.habilidades.categories[category.id]}
-              skills={localizeSkills(category.skills, locale)}
+              title={translations.habilidades.categories[category.id]}
+              skills={localizeNames(category.skills, locale)}
               headingLevel={3}
               className="reveal"
             />
@@ -82,7 +74,7 @@ export default function Habilidades() {
           id="habilidades-education-title"
           className="habilidades__section-title reveal"
         >
-          {t.habilidades.educationTitle}
+          {translations.habilidades.educationTitle}
         </h2>
         <ul className="habilidades__entries">
           {education.map((item) => (
@@ -106,7 +98,7 @@ export default function Habilidades() {
           id="habilidades-courses-title"
           className="habilidades__section-title reveal"
         >
-          {t.habilidades.coursesTitle}
+          {translations.habilidades.coursesTitle}
         </h2>
         <ul className="habilidades__entries">
           {courses.map((course) => (

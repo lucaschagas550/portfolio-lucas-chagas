@@ -34,6 +34,7 @@ import {
 } from "simple-icons";
 
 import type { TechIconSlug } from "~/data/tech-stack";
+import { classNames } from "~/utils/class-names";
 
 import "./tech-icon.css";
 
@@ -89,7 +90,7 @@ type TechIconProps = {
 
 // Ícone decorativo: o nome da tecnologia sempre aparece em texto ao lado.
 export function TechIcon({ iconSlug, className }: TechIconProps) {
-  const classes = ["tech-icon", className].filter(Boolean).join(" ");
+  const classes = classNames("tech-icon", className);
   const imageSrc = iconSlug ? imageIcons[iconSlug] : undefined;
 
   if (imageSrc) {

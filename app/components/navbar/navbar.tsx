@@ -2,16 +2,21 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { LanguageSwitch } from "~/components/language-switch/language-switch";
 import { NavItem } from "~/components/nav-item/nav-item";
+import { OutlineIcon } from "~/components/outline-icon/outline-icon";
 import { ThemeToggle } from "~/components/theme-toggle/theme-toggle";
 import { pages } from "~/data/pages";
 import { useI18n } from "~/i18n/use-i18n";
+import { classNames } from "~/utils/class-names";
 
 import "./navbar.css";
+
+const MENU_ICON = "M4 6h16M4 12h16M4 18h16";
+const CLOSE_ICON = "M6 6l12 12M18 6L6 18";
 
 // No celular o menu é um drawer; a partir do tablet o CSS o exibe em linha.
 // O estado só controla o drawer, quem decide o layout por tela é o CSS.
 export function Navbar() {
-  const { t, href } = useI18n();
+  const { translations, localizePath } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -45,24 +50,17 @@ export function Navbar() {
           className="navbar__toggle"
           aria-expanded={isOpen}
           aria-controls={menuId}
-          aria-label={isOpen ? t.navbar.closeMenu : t.navbar.openMenu}
+          aria-label={
+            isOpen
+              ? translations.navbar.closeMenu
+              : translations.navbar.openMenu
+          }
           onClick={() => setIsOpen((open) => !open)}
         >
-          <svg
+          <OutlineIcon
             className="navbar__icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            {isOpen ? (
-              <path d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+            path={isOpen ? CLOSE_ICON : MENU_ICON}
+          />
         </button>
 
         {isOpen && (
@@ -77,17 +75,21 @@ export function Navbar() {
 
         <nav
           id={menuId}
-          className={isOpen ? "navbar__nav navbar__nav--open" : "navbar__nav"}
-          aria-label={t.navbar.navLabel}
+          className={classNames("navbar__nav", isOpen && "navbar__nav--open")}
+          aria-label={translations.navbar.navLabel}
         >
-          <p className="navbar__title">{t.navbar.menuTitle}</p>
+          <p className="navbar__title">{translations.navbar.menuTitle}</p>
           <ul className="navbar__list">
             {pages.map(({ id, path }) => (
               // end: true na página inicial evita que ela fique "ativa" em
               // qualquer rota (todo caminho começa com "/").
               <li key={id} className="navbar__item">
-                <NavItem to={href(path)} end={path === "/"} onClick={close}>
-                  {t.navbar.links[id]}
+                <NavItem
+                  to={localizePath(path)}
+                  end={path === "/"}
+                  onClick={close}
+                >
+                  {translations.navbar.links[id]}
                 </NavItem>
               </li>
             ))}

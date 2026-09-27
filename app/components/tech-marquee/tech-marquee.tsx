@@ -1,5 +1,6 @@
 import { TechIcon } from "~/components/tech-icon/tech-icon";
 import type { TechStackItem } from "~/data/tech-stack";
+import { classNames } from "~/utils/class-names";
 
 import "./tech-marquee.css";
 
@@ -36,10 +37,8 @@ type TechMarqueeProps = {
 };
 
 export function TechMarquee({ items, label, className }: TechMarqueeProps) {
-  const classes = ["tech-marquee", className].filter(Boolean).join(" ");
-
   return (
-    <div className={classes}>
+    <div className={classNames("tech-marquee", className)}>
       <div className="tech-marquee__track">
         <TechList items={items} label={label} />
         <TechList items={items} label={label} clone />

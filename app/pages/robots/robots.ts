@@ -1,4 +1,5 @@
-import { buildRobots, resolveOrigin } from "~/utils/sitemap";
+import { buildRobots } from "~/utils/robots";
+import { resolveOrigin } from "~/utils/site-origin";
 
 // Rota de recurso: responde o texto direto, sem renderizar página.
 export function loader({ request }: { request: Request }) {

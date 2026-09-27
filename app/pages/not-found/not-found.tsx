@@ -1,8 +1,7 @@
 import { data, Link, useLocation } from "react-router";
 
 import { pages } from "~/data/pages";
-import { getLocale } from "~/i18n/locale";
-import { messages } from "~/i18n/messages";
+import { pageMeta } from "~/i18n/page-meta";
 import { useI18n } from "~/i18n/use-i18n";
 
 import "~/pages/page.css";
@@ -14,19 +13,15 @@ export function loader() {
 }
 
 export function meta({ location }: { location: { pathname: string } }) {
-  const { title, description } =
-    messages[getLocale(location.pathname)].notFound.meta;
-
   return [
-    { title },
-    { name: "description", content: description },
+    ...pageMeta(location.pathname, "notFound"),
     { name: "robots", content: "noindex" },
   ];
 }
 
 export default function NotFound() {
   const { pathname } = useLocation();
-  const { t, href } = useI18n();
+  const { translations, localizePath } = useI18n();
 
   return (
     <main className="page not-found">
@@ -41,22 +36,24 @@ export default function NotFound() {
         </p>
       </div>
 
-      <h1 className="page__title">{t.notFound.title}</h1>
-      <p className="not-found__text">{t.notFound.details(pathname)}</p>
+      <h1 className="page__title">{translations.notFound.title}</h1>
+      <p className="not-found__text">
+        {translations.notFound.details(pathname)}
+      </p>
 
       <section className="not-found__pages" aria-labelledby="not-found-pages">
         <h2 id="not-found-pages" className="not-found__pages-title">
-          {t.notFound.pagesTitle}
+          {translations.notFound.pagesTitle}
         </h2>
         <ul className="not-found__list">
           {pages.map(({ id, path }) => (
             <li key={id}>
-              <Link className="not-found__link" to={href(path)}>
+              <Link className="not-found__link" to={localizePath(path)}>
                 <span className="not-found__link-name">
-                  {t.navbar.links[id]}
+                  {translations.navbar.links[id]}
                 </span>{" "}
                 <span className="not-found__link-description">
-                  {t.notFound.pages[id]}
+                  {translations.notFound.pages[id]}
                 </span>
               </Link>
             </li>

@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { classNames } from "~/utils/class-names";
+
 import "./stat-highlights.css";
 
 type StatHighlightsProps = {
@@ -17,10 +19,8 @@ export function StatHighlights({
   label,
   className,
 }: StatHighlightsProps) {
-  const classes = ["stat-highlights", className].filter(Boolean).join(" ");
-
   return (
-    <ul className={classes} aria-label={label}>
+    <ul className={classNames("stat-highlights", className)} aria-label={label}>
       {items.map((item) => (
         <li key={item.id} className="stat-highlights__item">
           <span
