@@ -1,0 +1,166 @@
+/* Página 404: a troca HTTP (requisição e resposta) é o destaque, com o
+   trilho roxo da linha do tempo ligando as duas linhas. O estado base é o
+   final; a entrada só anima com movimento permitido.
+
+   ┃ GET /caminho
+   ┃
+   ┃ HTTP/1.1 404 Not Found
+   Página não encontrada
+   Páginas do portfólio (1 coluna; 2 do tablet em diante)            */
+
+.not-found {
+  --not-found-rail: 2px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.not-found__exchange {
+  position: relative;
+  margin-bottom: var(--space-8);
+  padding-left: var(--space-4);
+  font-family: var(--font-mono);
+}
+
+.not-found__exchange::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--not-found-rail);
+  border-radius: 1px;
+  background-color: var(--color-brand);
+  transform-origin: top;
+}
+
+.not-found__request {
+  margin: 0 0 var(--space-6);
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.not-found__response {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-3);
+  margin: 0;
+}
+
+.not-found__protocol {
+  color: var(--color-text-muted);
+}
+
+.not-found__status {
+  color: var(--color-brand);
+  font-size: clamp(4.5rem, 20vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.not-found__reason {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.not-found__text {
+  max-width: var(--prose-max);
+  margin: 0;
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.not-found__pages {
+  margin-top: var(--space-12);
+}
+
+.not-found__pages-title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.not-found__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.not-found__link {
+  display: grid;
+  gap: var(--space-1);
+  min-height: var(--tap-size);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* O nome herda a cor do link (e o roxo do hover); a descrição fica apagada. */
+.not-found__link:hover,
+.not-found__link:focus-visible {
+  color: var(--color-hover);
+}
+
+.not-found__link-name {
+  font-weight: 500;
+}
+
+.not-found__link-description {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 48rem) {
+  .not-found__exchange {
+    padding-left: var(--space-6);
+  }
+
+  .not-found__reason {
+    font-size: 1.5rem;
+  }
+
+  .not-found__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+
+/* Uma única entrada: a requisição sai, o trilho desce como a ida e volta
+   e a resposta chega. Por tempo (termina logo após o carregamento), então
+   o fade é permitido. */
+@media (prefers-reduced-motion: no-preference) {
+  .not-found__request {
+    animation: not-found-send 400ms ease-out both;
+  }
+
+  .not-found__exchange::before {
+    animation: not-found-travel 500ms ease-in-out 250ms both;
+  }
+
+  .not-found__response {
+    animation: not-found-arrive 450ms ease-out 700ms both;
+  }
+}
+
+@keyframes not-found-send {
+  from {
+    opacity: 0;
+    translate: calc(-1 * var(--space-4)) 0;
+  }
+}
+
+@keyframes not-found-travel {
+  from {
+    scale: 1 0;
+  }
+}
+
+@keyframes not-found-arrive {
+  from {
+    opacity: 0;
+    translate: 0 var(--space-4);
+  }
+}

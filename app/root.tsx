@@ -70,13 +70,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = t.errors.defaultDetails;
   let stack: string | undefined;
 
+  // Endereços sem página não chegam aqui: a rota "*" (not-found) os atende.
   if (isRouteErrorResponse(error)) {
-    message =
-      error.status === 404 ? t.errors.notFoundTitle : t.errors.genericTitle;
-    details =
-      error.status === 404
-        ? t.errors.notFoundDetails
-        : error.statusText || details;
+    message = t.errors.genericTitle;
+    details = error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

@@ -40,6 +40,9 @@
   --font-sans:
     "Roboto", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* Só onde o texto é código de fato (ex.: a troca HTTP da página 404). */
+  --font-mono:
+    ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
 
   /* Espaçamento */
   --space-1: 0.25rem;

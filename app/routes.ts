@@ -21,4 +21,6 @@ export default [
     ".well-known/appspecific/com.chrome.devtools.json",
     "pages/devtools/devtools.ts",
   ),
+  // Qualquer outro endereço: página 404 dentro do layout, nos dois idiomas.
+  route("*", "pages/not-found/not-found.tsx"),
 ] satisfies RouteConfig;

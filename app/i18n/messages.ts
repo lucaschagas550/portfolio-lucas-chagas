@@ -135,11 +135,26 @@ const pt = {
     resumeDescription: "Versão em PDF para compartilhar",
     newTab: "(abre em nova aba)",
   },
+  notFound: {
+    meta: {
+      title: "Página não encontrada | Lucas Chagas",
+      description:
+        "O endereço acessado não corresponde a nenhuma página do portfólio de Lucas Chagas.",
+    },
+    title: "Página não encontrada",
+    details: (path: string) =>
+      `Não existe nenhuma página em ${path}. O link pode estar desatualizado ou ter um erro de digitação.`,
+    pagesTitle: "Páginas do portfólio",
+    pages: {
+      home: "Apresentação e tecnologias",
+      habilidades: "Especialidade em .NET, competências e cursos",
+      historia: "Trajetória profissional, do estágio a sênior",
+      contato: "E-mail, LinkedIn, GitHub e currículo",
+    },
+  },
   errors: {
     defaultTitle: "Ops!",
     defaultDetails: "Ocorreu um erro inesperado.",
-    notFoundTitle: "404",
-    notFoundDetails: "A página solicitada não foi encontrada.",
     genericTitle: "Erro",
   },
 };
@@ -277,11 +292,26 @@ const en: Messages = {
     resumeDescription: "PDF version to share",
     newTab: "(opens in a new tab)",
   },
+  notFound: {
+    meta: {
+      title: "Page not found | Lucas Chagas",
+      description:
+        "The address you opened doesn't match any page in Lucas Chagas' portfolio.",
+    },
+    title: "Page not found",
+    details: (path: string) =>
+      `There is no page at ${path}. The link may be out of date or contain a typo.`,
+    pagesTitle: "Portfolio pages",
+    pages: {
+      home: "Introduction and technologies",
+      habilidades: ".NET specialty, skills and courses",
+      historia: "Career path, from intern to senior",
+      contato: "Email, LinkedIn, GitHub and resume",
+    },
+  },
   errors: {
     defaultTitle: "Oops!",
     defaultDetails: "An unexpected error occurred.",
-    notFoundTitle: "404",
-    notFoundDetails: "The requested page could not be found.",
     genericTitle: "Error",
   },
 };
